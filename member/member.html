@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息查询 - 第二协议数据库</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .auth-panel, .info-panel {
+            background-color: var(--card-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .info-panel {
+            display: none;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .captcha {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .captcha-text {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            letter-spacing: 3px;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            user-select: none;
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .member-card {
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .member-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid var(--accent-color);
+        }
+        
+        .member-basic {
+            flex-grow: 1;
+        }
+        
+        .member-name {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .member-id {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        .member-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .detail-item {
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            padding: 8px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .skills {
+            grid-column: span 2;
+        }
+        
+        .skill-tag {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .logout-btn {
+            background-color: var(--accent-color);
+            margin-top: 20px;
+        }
+        
+        .error-message {
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--secondary-color);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 验证面板 -->
+        <div class="auth-panel" id="authPanel">
+            <h1>第二协议成员验证</h1>
+            
+            <div class="form-group">
+                <label for="memberId">成员编号</label>
+                <input type="text" id="memberId" placeholder="例如：SA-114514">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">密码</label>
+                <input type="password" id="password" placeholder="输入您的密码">
+            </div>
+            
+            <div class="form-group">
+                <label>人机验证</label>
+                <div class="captcha">
+                    <div class="captcha-text" id="captchaText">3A7B9C</div>
+                    <input type="text" id="captchaInput" placeholder="输入上方验证码">
+                </div>
+            </div>
+            
+            <button id="loginBtn">验证身份</button>
+            <div class="error-message" id="errorMessage">验证失败，请检查您的凭据</div>
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <p>正在验证身份...</p>
+            </div>
+        </div>
+        
+        <!-- 信息面板 (默认隐藏) -->
+        <div class="info-panel" id="infoPanel">
+            <h1>成员档案</h1>
+            
+            <div class="member-card">
+                <div class="member-header">
+                    <img src="https://i.imgur.com/JR9qY7a.jpg" alt="成员头像" class="member-avatar">
+                    <div class="member-basic">
+                        <h2 class="member-name">加载中... <span class="member-id">(ID: -)</span></h2>
+                        <div><strong>隶属：</strong>第二协议 · 数据加载中</div>
+                    </div>
+                </div>
+                
+                <div class="member-details">
+                    <div class="detail-item">
+                        <span class="detail-label">种族</span>
+                        <div class="detail-value">-</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">年龄</span>
+                        <div class="detail-value">-</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">身高</span>
+                        <div class="detail-value">-</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">职位等级</span>
+                        <div class="detail-value">-</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">精神值</span>
+                        <div class="detail-value">-</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <span class="detail-label">生命值</span>
+                        <div class="detail-value">-</div>
+                    </div>
+                    
+                    <div class="detail-item skills">
+                        <span class="detail-label">特殊能力</span>
+                        <div>
+                            <span class="skill-tag">加载中...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-item" style="grid-column: span 2;">
+                        <span class="detail-label">当前状态</span>
+                        <div class="detail-value">
+                            <strong>位置：</strong>数据加载中...<br>
+                            <strong>基因稳定度：</strong>-<br>
+                            <strong>最近任务：</strong>-
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="logout-btn" id="logoutBtn">安全退出</button>
+        </div>
+    </div>
+
+    <script>
+        // 生成随机验证码
+        function generateCaptcha() {
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let result = '';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            
+            // 抖动效果
+            document.getElementById('authPanel').animate([
+                { transform: 'translateX(0)' },
+                { transform: 'translateX(-10px)' },
+                { transform: 'translateX(10px)' },
+                { transform: 'translateX(0)' }
+            ], {
+                duration: 300,
+                iterations: 2
+            });
+        }
+
+        // 加载成员数据
+        async function loadMemberData() {
+            try {
+                // 这里替换为你的实际数据文件路径
+                const response = await fetch('members_data.txt');
+                if (!response.ok) throw new Error('网络响应不正常');
+                
+                const textData = await response.text();
+                const members = [];
+                
+                // 解析文本数据
+                textData.split('\n').forEach(line => {
+                    line = line.trim();
+                    if (line && !line.startsWith('#')) {
+                        const [id, pwd, name, nickname, race, age, height, position, 
+                              mental, health, skills, location, stability, mission] = line.split('|');
+                        
+                        members.push({
+                            id: id.trim(),
+                            pwd: pwd.trim(),
+                            name: name.trim(),
+                            nickname: nickname.trim(),
+                            race: race.trim(),
+                            age: age.trim(),
+                            height: height.trim(),
+                            position: position.trim(),
+                            mental: mental.trim(),
+                            health: health.trim(),
+                            skills: skills.split(',').map(s => s.trim()),
+                            status: {
+                                location: location.trim(),
+                                stability: stability.trim(),
+                                mission: mission.trim()
+                            }
+                        });
+                    }
+                });
+                
+                return members;
+            } catch (error) {
+                console.error('加载成员数据失败:', error);
+                // 返回默认测试数据
+                return [{
+                    id: 'SA-114514',
+                    pwd: 'RoseVance1919',
+                    name: '阮梵希',
+                    nickname: '与玫瑰共生的蝴蝶',
+                    race: '人科/玫瑰种基因融合体',
+                    age: '18 (生物年龄) / 7 (融合体代数)',
+                    height: '180',
+                    position: '第三档成员 (支援型)',
+                    mental: '180/200 (隐性上限)',
+                    health: '170 (基础)',
+                    skills: ['玫瑰缠影', '蝶翼光合', '荆棘共鸣', '空间亲和'],
+                    status: {
+                        location: '生态区S-7执行修复任务',
+                        stability: '87% (需每月返回培养舱)',
+                        mission: '新生宇宙N-114玫瑰植被评估'
+                    }
+                }];
+            }
+        }
+
+        // 显示成员信息
+        function displayMemberInfo(member) {
+            document.querySelector('.member-name').innerHTML = `${member.name} <span class="member-id">(${member.nickname})</span>`;
+            document.querySelector('.member-basic div:last-child').innerHTML = `<strong>隶属：</strong>第二协议 · ${member.position.split(' ')[0]}`;
+            
+            // 更新头像
+            const avatar = document.querySelector('.member-avatar');
+            avatar.alt = member.name;
+            
+            // 填充详细信息
+            const details = [
+                ['种族', member.race],
+                ['年龄', member.age],
+                ['身高', `${member.height}cm`],
+                ['职位等级', member.position],
+                ['精神值', member.mental],
+                ['生命值', member.health]
+            ];
+            
+            document.querySelectorAll('.detail-item').forEach((item, index) => {
+                if (index < details.length) {
+                    item.querySelector('.detail-label').textContent = details[index][0];
+                    item.querySelector('.detail-value').textContent = details[index][1];
+                }
+            });
+            
+            // 更新技能
+            const skillsContainer = document.querySelector('.skills div');
+            skillsContainer.innerHTML = member.skills.map(skill => 
+                `<span class="skill-tag">${skill}</span>`
+            ).join('');
+            
+            // 更新状态
+            const statusContainer = document.querySelector('.detail-value:last-child');
+            statusContainer.innerHTML = `
+                <strong>位置：</strong>${member.status.location}<br>
+                <strong>基因稳定度：</strong>${member.status.stability}<br>
+                <strong>最近任务：</strong>${member.status.mission}
+            `;
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 设置验证码
+            document.getElementById('captchaText').textContent = generateCaptcha();
+            
+            // 登录按钮事件
+            document.getElementById('loginBtn').addEventListener('click', async function() {
+                const memberId = document.getElementById('memberId').value.trim();
+                const password = document.getElementById('password').value.trim();
+                const captcha = document.getElementById('captchaInput').value.trim();
+                const captchaText = document.getElementById('captchaText').textContent;
+                
+                // 验证输入
+                if (!memberId || !password) {
+                    showError('请输入编号和密码');
+                    return;
+                }
+                
+                if (captcha !== captchaText) {
+                    showError('验证码错误');
+                    document.getElementById('captchaText').textContent = generateCaptcha();
+                    return;
+                }
+                
+                // 显示加载状态
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('loading').style.display = 'block';
+                this.disabled = true;
+                
+                try {
+                    // 加载成员数据
+                    const members = await loadMemberData();
+                    const member = members.find(m => m.id === memberId && m.pwd === password);
+                    
+                    if (member) {
+                        // 验证成功，显示信息
+                        displayMemberInfo(member);
+                        document.getElementById('authPanel').style.display = 'none';
+                        document.getElementById('infoPanel').style.display = 'block';
+                    } else {
+                        showError('编号或密码错误');
+                    }
+                } catch (error) {
+                    console.error('验证过程中出错:', error);
+                    showError('系统错误，请稍后重试');
+                } finally {
+                    document.getElementById('loading').style.display = 'none';
+                    this.disabled = false;
+                    document.getElementById('captchaText').textContent = generateCaptcha();
+                }
+            });
+            
+            // 退出按钮事件
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                document.getElementById('authPanel').style.display = 'block';
+                document.getElementById('infoPanel').style.display = 'none';
+                
+                // 清空输入
+                document.getElementById('memberId').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('captchaInput').value = '';
+                
+                // 生成新验证码
+                document.getElementById('captchaText').textContent = generateCaptcha();
+            });
+        });
+    </script>
+</body>
+</html>
