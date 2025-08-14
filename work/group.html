@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>协议机关 - 组织架构</title>
+    <style>
+        /* 全局样式 - 与世界列表一致 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 标题区 */
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-color);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            margin: 5px 0 0;
+            font-style: italic;
+        }
+        
+/* 导航栏 */
+.navbar {
+    background-color: var(--primary-color);
+    padding: 15px 0;
+    overflow-x: auto;
+    white-space: nowrap;
+    
+}
+
+.nav-links {
+    display: inline-block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+    
+}
+
+.nav-links li {
+    display: inline-block;
+    margin: 0 8px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem; /* 缩小字体 */
+    padding: 10px 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+.nav-links a.highlight {
+    color: #00ffff; /* 亮蓝色 */
+    text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 隐藏滚动条但保持滚动功能 */
+.navbar::-webkit-scrollbar {
+    display: none;
+}
+        
+        /* 页面标题 - 与世界列表一致 */
+        .page-header {
+            background-color: #4e73df;
+            background-image: linear-gradient(100deg, #4e73df 0%, #224abe 100%);
+            color: white;
+            padding: 1rem 10%;
+            margin-bottom: 0rem;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 600;
+        }
+        
+        .page-header p.subtitle {
+            margin: 0.5rem 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* 机关列表容器 */
+        .department-container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+        
+        /* 单个机关卡片样式 */
+        .department-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0.15rem 0.75rem rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            display: flex;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .department-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 机关图片区域 */
+        .department-image {
+            width: 220px;
+            min-width: 220px;
+            height: 220px;
+            background-color: #f8f9fc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .department-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* 机关信息区域 */
+        .department-info {
+            flex: 1;
+            padding: 1.5rem;
+        }
+        
+        .department-name {
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem 0;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .department-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #5a6a85;
+        }
+        
+        .department-head {
+            font-size: 1.1rem;
+            color: #e74a3b;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        
+        .department-link {
+            display: inline-block;
+            background-color: #4e73df;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .department-link:hover {
+            background-color: #3a5ccc;
+            text-decoration: none;
+        }
+        
+        /* 响应式*/
+        @media (max-width: 992px) {
+            
+            .department-container {
+                width: 90%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .department-card {
+                flex-direction: column;
+            }
+            
+            .department-image {
+                width: 100%;
+                height: 180px;
+            }
+            
+            
+/* 移动端可能需要汉堡菜单 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 - 与世界列表完全一致 -->
+
+    
+    <!-- 页面标题 - 与世界列表一致 -->
+    <div class="page-header">
+        <h1>协议机关</h1>
+        <p class="subtitle">组织的核心架构与职能部门</p>
+    </div>
+    
+    <div class="navbar">
+    <div class="container">
+        <ul class="nav-links">
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="#">技术资料</a></li>
+            <li><a href="../world/list.html">世界列表</a></li>
+            <li><a href="#">官方通告</a></li>
+            <li><a href="#">概念</a></li>
+            <li><a href="#">协议机构</a></li>
+            <li><a href="#" class="highlight">协议宪章</a></li>
+        </ul>
+    </div>
+</div>
+
+
+    <!-- 机关列表容器 -->
+    <div class="department-container">
+
+        <!-- 联合武装司令部 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/dc3545/ffffff?text=联合武装司令部" alt="联合武装司令部">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">联合武装司令部</h2>
+        <p class="department-description">作为协议组织的军事中枢，我们统筹全域武装力量，从常规维和到跨宇宙威慑行动。拥有直接调动泰坦级战略舰队的权限，所有军事行动最终都指向一个目标：用绝对力量确保协议条款的执行。</p>
+        <p class="department-head">现任统帅：五星上将 卡洛斯·铁腕</p>
+        <a href="military_command.html" class="department-link">查看作战白皮书 →</a>
+    </div>
+</div>
+
+<!-- 特勤部队指挥部 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/212529/ffffff?text=特勤部队" alt="特勤部队指挥部">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">特勤部队指挥部</h2>
+        <p class="department-description">由"夜枭"、"幽灵"等36支特种小队组成的暗影利刃。我们专精于渗透、斩首、情报夺取等黑色行动，所有成员均接受过反物理学训练，能在11类极端环境下完成任务。记住——如果你听说过我们，那说明行动已经失败了。</p>
+        <p class="department-head">影子指挥官：██████</p>
+        <a href="black_ops.html" class="department-link">访问需要5级权限 →</a>
+    </div>
+</div>
+
+<!-- 世界仲裁机关 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/6c757d/ffffff?text=世界仲裁" alt="世界仲裁机关">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">世界仲裁机关</h2>
+        <p class="department-description">手持法典与湮灭枪的审判者。我们不仅裁决犯罪行为，更对文明冲突进行强制调解。拥有跨宇宙引渡权和记忆重构技术，确保每个判决都成为震慑性的范本。注意：我们的法庭没有上诉程序。</p>
+        <p class="department-head">首席大法官：阿尔法-7（人工智能体）</p>
+        <a href="judicial_system.html" class="department-link">查看法典全文 →</a>
+    </div>
+</div>
+
+<!-- 天基科学研究院 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/17a2b8/ffffff?text=天基科学" alt="天基科学研究院">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">天基科学研究院</h2>
+        <p class="department-description">在轨道空间站"普罗米修斯"和量子实验室中，我们撕碎物理定律的边角。主要研究方向包括：真空衰变武器化、意识上传技术、跨宇宙通信协议。每年为直属领地输送2000名顶尖科学家。</p>
+        <p class="department-head">院长：诺伯特·维兰德博士</p>
+        <a href="science_division.html" class="department-link">参观虚拟实验室 →</a>
+    </div>
+</div>
+
+<!-- 直属领地政府机关 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/28a745/ffffff?text=直属领地" alt="直属领地政府">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">直属领地政府机关</h2>
+        <p class="department-description">管理着分布在7个宇宙的214个行政星区。采用蜂巢式治理模式，每个领地既是独立政体又是协议网络的节点。我们证明了一件事：绝对控制与高度自治可以共存——只要数据流的流速足够快。</p>
+        <p class="department-head">总督：执行官Prime</p>
+        <a href="colonies.html" class="department-link">查看星区地图 →</a>
+    </div>
+</div>
+
+<!-- 泰坦工业集团 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/fd7e14/ffffff?text=泰坦工业" alt="泰坦工业集团">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">泰坦工业集团</h2>
+        <p class="department-description">用纳米锻造厂和戴森球为文明续命。我们量产从家用机器人到行星裂解器的所有工业品，掌握物质重组技术专利387万项。 motto："如果它不能承受超新星爆发，就不算完工"。</p>
+        <p class="department-head">CEO：玛尔斯·克罗诺斯</p>
+        <a href="titan_industry.html" class="department-link">浏览产品目录 →</a>
+    </div>
+</div>
+
+<!-- 起源财团 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/6f42c1/ffffff?text=起源财团" alt="起源财团">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">起源财团</h2>
+        <p class="department-description">以经济手段延续那场未竟的战争。我们控制着跨宇宙82%的暗物质交易和46个文明的国债，投资方向永远服务于协议的战略需求。记住我们的箴言："信用点比炮弹更有穿透力"。</p>
+        <p class="department-head">理事长：九尾狐</p>
+        <a href="financial_network.html" class="department-link">查看年度财报 →</a>
+    </div>
+</div>
+
+<!-- 武装后勤部 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/20c997/ffffff?text=武装后勤" alt="武装后勤部">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">武装后勤部</h2>
+        <p class="department-description">当军队还在睡梦中时，我们已把弹药送到他们的枕头下。运营着横跨11个宇宙的量子物流网络，能在72小时内完成百万级别军团的全装备投送。 motto："没有我们送不到的地方——包括黑洞视界"。</p>
+        <p class="department-head">部长：阿曼尼·斯特林</p>
+        <a href="logistics.html" class="department-link">查看补给标准 →</a>
+    </div>
+</div>
+
+<!-- 深空异常策略署 -->
+<div class="department-card">
+    <div class="department-image">
+        <img src="https://via.placeholder.com/400x400/6610f2/ffffff?text=异常策略署" alt="深空异常策略署">
+    </div>
+    <div class="department-info">
+        <h2 class="department-name">深空异常策略署</h2>
+        <p class="department-description">专门处理"不该存在之物"的智库。从文明级模因污染到维度裂缝，我们建立数学模型、制定 containment 协议。警告：本部门文档中97%的内容会导致认知危害。</p>
+        <p class="department-head">署长：███博士</p>
+        <a href="anomaly_protocol.html" class="department-link">⚠️ 访问需要7级权限 ⚠️</a>
+    </div>
+</div>
+
+    </div>
+</body>
+</html>
