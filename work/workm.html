@@ -1,28 +1,244 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="UTF-8">
-        <title>关于协议</title>
-        <link rel="stylesheet" type="text/css" href="../css/style.css">
-        
-        <style>
-            :root {
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>协议制度 - 第二协议数据库</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 新增子页面专用样式 */
+        :root {
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
             --accent-color: #e74c3c;
             --bg-color: #f5f5f5;
             --card-color: #ffffff;
             --text-color: #333333;
-            }
-        </style>
-    </head>
+            --sidebar-width: 250px;
+        }
 
-    <body>
+        /* 制度页面特有布局 */
+        .system-container {
+            display: flex;
+            margin: 30px 0;
+            gap: 30px;
+        }
+
+        /* 左侧导航 */
+        .sidebar-nav {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .sidebar-nav h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-links a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-links a:hover,
+        .sidebar-links a.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* 右侧内容区 */
+        .content-area {
+            flex: 1;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        /* 水平分割线样式 */
+        hr {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right,
+                    rgba(52, 152, 219, 0),
+                    rgba(52, 152, 219, 0.75),
+                    rgba(52, 152, 219, 0));
+            margin: 30px 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .system-container {
+                flex-direction: column;
+            }
+
+            .sidebar-nav {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 标题区 -->
         <div class="header">
-            <div class="container">
-                <h1>关于第二协议：组织架构</h1>
-                <p1>您可以在本页面了解关于“第二协议”的相关信息</p1>
+            <h1>第二协议制度体系</h1>
+            <p>探索 · 合作 · 共进 - 多元宇宙文明协作规范</p>
+        </div>
+
+        <!-- 页眉留言 -->
+        <div class="header-message">
+            <marquee>【制度更新】《跨宇宙文明接触准则》v3.2已生效 | 《熵增管控条例》修订草案征求意见中</marquee>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <ul class="nav-links">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="#">技术资料</a></li>
+                <li><a href="../world/list.html">世界列表</a></li>
+                <li><a href="#">官方通告</a></li>
+                <li><a href="#">概念</a></li>
+                <li><a href="group.html">协议机构</a></li>
+                <li><a href="#">协议制度</a></li>
+                <li><a href="#" class="highlight">协议宪章</a></li>
+            </ul>
+        </div>
+
+        <!-- 主要内容区 -->
+        <div class="system-container">
+            <!-- 左侧导航 -->
+            <nav class="sidebar-nav">
+                <h3>制度分类</h3>
+                <ul class="sidebar-links">
+                    <li><a href="#basic-laws" class="active">基本法</a></li>
+                    <li><a href="#member-system">成员制度</a></li>
+                    <li><a href="#universe-management">宇宙管理</a></li>
+                    <li><a href="#tech-standards">技术标准</a></li>
+                    <li><a href="#safety-protocols">安全协议</a></li>
+                    <li><a href="#crisis-response">危机应对</a></li>
+                    <li><a href="#ethics-review">伦理审查</a></li>
+                </ul>
+            </nav>
+
+            <!-- 右侧内容区 -->
+            <div class="content-area">
+                <!-- 基本法部分 -->
+                <section id="basic-laws" class="content-section">
+                    <h2>《第二协议基本法》</h2>
+                    <p>第二协议是由多元宇宙文明共同制定的最高纲领性文件，确立以下基本原则：</p>
+                    <ul>
+                        <li><strong>平等原则：</strong>所有成员宇宙在协议框架内享有平等权利</li>
+                        <li><strong>不干涉原则：</strong>禁止以任何形式干涉文明自然发展进程</li>
+                        <li><strong>互助原则：</strong>对熵增危机中的文明提供必要援助</li>
+                        <li><strong>信息共享：</strong>非涉密技术成果应在协议内部分享</li>
+                    </ul>
+                    <p>基本法修正需经四分之三以上成员宇宙代表同意。</p>
+                </section>
+
+                <hr>
+
+                <!-- 成员制度部分 -->
+                <section id="member-system" class="content-section">
+                    <h2>《成员分级管理制度》</h2>
+                    <p>协议成员分为三个权限级别，实行贡献积分晋升制：</p>
+
+                    <h3>第一档成员（监督者）</h3>
+                    <p>拥有最高决策权，负责：</p>
+                    <ul>
+                        <li>协议发展方向制定</li>
+                        <li>重大危机事件处置</li>
+                        <li>新成员准入审核</li>
+                    </ul>
+
+                    <h3>第二档成员（执行者）</h3>
+                    <p>核心执行力量，负责：</p>
+                    <ul>
+                        <li>日常事务管理</li>
+                        <li>技术标准实施</li>
+                        <li>三档成员指导</li>
+                    </ul>
+
+                    <h3>第三档成员（协作者）</h3>
+                    <p>基础成员，享有：</p>
+                    <ul>
+                        <li>协议基础服务使用权</li>
+                        <li>技术资料查阅权</li>
+                        <li>提案建议权</li>
+                    </ul>
+                </section>
+
+                <hr>
+
+                <!-- 宇宙管理部分 -->
+                <section id="universe-management" class="content-section">
+                    <h2>《宇宙分级管理办法》</h2>
+                    <p>根据熵增状态和发展潜力，将宇宙分为：</p>
+
+                    <h3>Σ级宇宙（总部所在）</h3>
+                    <p>协议核心区域，实行：</p>
+                    <ul>
+                        <li>绝对力场防护</li>
+                        <li>跨宇宙航道枢纽</li>
+                        <li>全维度监控</li>
+                    </ul>
+
+                    <h3>Ω级宇宙（死亡宇宙）</h3>
+                    <p>仅保留观测站，禁止：</p>
+                    <ul>
+                        <li>物质提取</li>
+                        <li>时空改造</li>
+                        <li>大规模能量活动</li>
+                    </ul>
+
+                    <p>完整分类参见<a href="#">《宇宙评级标准》</a>附件1-7</p>
+                </section>
+
+                <!-- 更多内容区... -->
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

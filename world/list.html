@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <meta charset="UTF-8">
@@ -14,8 +15,8 @@
             --card-color: #ffffff;
             --text-color: #333333;
         }
-        
-        
+
+
         /* 快速导航 */
         .quick-nav {
             background-color: var(--primary-color);
@@ -24,24 +25,24 @@
             margin: 20px 0;
             border-radius: 5px;
         }
-        
+
         .quick-nav-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
         }
-        
+
         .nav-section {
             margin: 0 15px;
         }
-        
+
         .nav-section h3 {
             margin-top: 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             padding-bottom: 5px;
         }
-        
+
         .nav-links-small {
             list-style: none;
             padding: 0;
@@ -50,25 +51,25 @@
             flex-wrap: wrap;
             gap: 5px;
         }
-        
+
         .nav-links-small a {
             color: white;
             text-decoration: none;
             font-size: 0.85rem;
             padding: 2px 6px;
             border-radius: 3px;
-            background-color: rgba(255,255,255,0.1);
+            background-color: rgba(255, 255, 255, 0.1);
         }
-        
+
         .nav-links-small a:hover {
             background-color: var(--secondary-color);
         }
-        
+
         /* 分类区 */
         .category-section {
             margin: 30px 0;
         }
-        
+
         .category-title {
             background-color: var(--primary-color);
             color: white;
@@ -77,44 +78,46 @@
             font-size: 1.3rem;
             margin-bottom: 0;
         }
+
         .hr {
-        border: 0;
-        height: 2px;
-        background-color: gray;
+            border: 0;
+            height: 2px;
+            background-color: gray;
         }
+
         /* 世界列表 */
         .world-table {
             width: 100%;
             border-collapse: collapse;
             background-color: var(--card-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-        
+
         .world-table th {
             background-color: var(--secondary-color);
             color: white;
             text-align: left;
             padding: 10px 15px;
         }
-        
+
         .world-table td {
             padding: 10px 15px;
             border-bottom: 1px solid #eee;
         }
-        
+
         .world-table tr:last-child td {
             border-bottom: none;
         }
-        
+
         .world-table tr:hover {
             background-color: #f9f9f9;
         }
-        
+
         .world-id {
             font-weight: bold;
             color: var(--accent-color);
         }
-        
+
         /* 状态标签 */
         .status-tag {
             display: inline-block;
@@ -124,28 +127,99 @@
             font-weight: bold;
             margin-right: 5px;
         }
-        
-        .entropy-0 { background-color: #333333; color: white; }
-        .entropy-1 { background-color: #8b0000; color: white; }
-        .entropy-2 { background-color: #b22222; color: white; }
-        .entropy-3 { background-color: #cd5c5c; color: white; }
-        .entropy-4 { background-color: #4682b4; color: white; }
-        .entropy-5 { background-color: #5f9ea0; color: white; }
-        .entropy-6 { background-color: #7fffd4; color: #333; }
-        
-        .priority-Γ { color: #ffa500; font-weight: bold; }
-        .priority-Ε { color: #9370db; font-weight: bold; }
-        .priority-Ν { color: #90ee90; font-weight: bold; }
-        .priority-Ξ { color: #9932cc; font-weight: bold; }
-        .priority-Σ { color: #ff0000; font-weight: bold; }
-        .priority-Θ { color: #696969; font-weight: bold; }
-        .priority-Ι { color: #ffd700; font-weight: bold; }
-        .priority-Π { color: #add8e6; font-weight: bold; }
-        .priority-Ω { color: #000000; font-weight: bold; }
-        .priority-α { color: #32cd32; font-weight: bold; }
-        .priority-β { color: #ff4500; font-weight: bold; }
+
+        .entropy-0 {
+            background-color: #333333;
+            color: white;
+        }
+
+        .entropy-1 {
+            background-color: #8b0000;
+            color: white;
+        }
+
+        .entropy-2 {
+            background-color: #b22222;
+            color: white;
+        }
+
+        .entropy-3 {
+            background-color: #cd5c5c;
+            color: white;
+        }
+
+        .entropy-4 {
+            background-color: #4682b4;
+            color: white;
+        }
+
+        .entropy-5 {
+            background-color: #5f9ea0;
+            color: white;
+        }
+
+        .entropy-6 {
+            background-color: #7fffd4;
+            color: #333;
+        }
+
+        .priority-Γ {
+            color: #ffa500;
+            font-weight: bold;
+        }
+
+        .priority-Ε {
+            color: #9370db;
+            font-weight: bold;
+        }
+
+        .priority-Ν {
+            color: #90ee90;
+            font-weight: bold;
+        }
+
+        .priority-Ξ {
+            color: #9932cc;
+            font-weight: bold;
+        }
+
+        .priority-Σ {
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        .priority-Θ {
+            color: #696969;
+            font-weight: bold;
+        }
+
+        .priority-Ι {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .priority-Π {
+            color: #add8e6;
+            font-weight: bold;
+        }
+
+        .priority-Ω {
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .priority-α {
+            color: #32cd32;
+            font-weight: bold;
+        }
+
+        .priority-β {
+            color: #ff4500;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <!-- 标题区 -->
     <div class="header">
@@ -153,20 +227,23 @@
             <h1>已登记世界列表</h1>
         </div>
     </div>
-    
+
     <!-- 导航栏 -->
     <div class="navbar">
         <div class="container">
             <ul class="nav-links">
                 <li><a href="../index.html">首页</a></li>
                 <li><a href="#">技术资料</a></li>
-                <li><a href="#">宇宙数据库</a></li>
+                <li><a href="#">世界列表</a></li>
                 <li><a href="#">官方通告</a></li>
-                <li><a href="#" class="highlight">协议宪章</a></li>
+                <li><a href="#">概念</a></li>
+                <li><a href="../work/group.html">协议机构</a></li>
+                <li><a href="../work/workm.html">协议制度</a></li>
+                <li><a href="#" class="highlight">协议宪章</a></li>f
             </ul>
         </div>
     </div>
-    
+
     <!-- 主要内容区 -->
     <div class="container">
         <!-- 快速导航 -->
@@ -204,7 +281,7 @@
                             <li><a href="#letter-Z">Z</a></li>
                         </ul>
                     </div>
-                    
+
                     <div class="nav-section">
                         <h3>重视级别</h3>
                         <ul class="nav-links-small">
@@ -221,7 +298,7 @@
                             <li><a href="#priority-β">β</a></li>
                         </ul>
                     </div>
-                    
+
                     <div class="nav-section">
                         <h3>熵增状态</h3>
                         <ul class="nav-links-small">
@@ -234,7 +311,7 @@
                             <li><a href="#entropy-6">6</a></li>
                         </ul>
                     </div>
-                    
+
                     <div class="nav-section">
                         <h3>规模分类</h3>
                         <ul class="nav-links-small">
@@ -249,7 +326,7 @@
                             <li><a href="#size-Y">Y</a></li>
                         </ul>
                     </div>
-                    
+
                     <div class="nav-section">
                         <h3>本质量级</h3>
                         <ul class="nav-links-small">
@@ -284,111 +361,127 @@
                 </div>
             </div>
         </div>
-        
-<!-- 世界列表分类展示 -->
-<div class="container">
-    <!-- A类世界 -->
-    <div class="letter-section" id="letter-A">
-        <h2 class="category-title">A</h2>
-        <div class="world-list">
-            <div class="world-card priority-Σ" id="A1">
-                <div class="world-id">A1　　　<span class="status-tag entropy-4">熵增4</span><span class="status-tag">规模D</span><span class="status-tag">本质量Y</span></div>
-            </div>
-            <div class="world-card priority-α" id="A2">
-                <div class="world-id">A2　　　<span class="status-tag entropy-5">熵增5</span><span class="status-tag">规模E</span><span class="status-tag">本质量J</span></div>
-            </div>
-            <div class="world-card priority-Γ" id="A3">
-                <div class="world-id">A3　　　<span class="status-tag entropy-3">熵增3</span><span class="status-tag">规模C</span><span class="status-tag">本质量H</span></div>
-            </div>
-        </div>
-    </div>
 
-    <!-- B类世界 -->
-    <div class="letter-section" id="letter-B">
-        <h2 class="category-title">B类世界</h2>
-        <div class="world-list">
-            <div class="world-card priority-Ι" id="B1">
-                <div class="world-id">B1　　　<span class="status-tag entropy-4">熵增4</span><span class="status-tag">规模F</span><span class="status-tag">本质量K</span></div>
-            </div>
-            <div class="world-card priority-β" id="B2">
-                <div class="world-id">B2　　　<span class="status-tag entropy-6">熵增6</span><span class="status-tag">规模G</span><span class="status-tag">本质量M</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- C类世界 -->
-    <div class="letter-section" id="letter-C">
-        <h2 class="category-title">C类世界</h2>
-        <div class="world-list">
-            <div class="world-card priority-Ν" id="C1">
-                <div class="world-id">C1　　　<span class="status-tag entropy-5">熵增5</span><span class="status-tag">规模E</span><span class="status-tag">本质量L</span></div>
-            </div>
-            <div class="world-card priority-Θ" id="C2">
-                <div class="world-id">C2　　　<span class="status-tag entropy-2">熵增2</span><span class="status-tag">规模B</span><span class="status-tag">本质量F</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- D类世界 -->
-    <div class="letter-section" id="letter-D">
-        <h2 class="category-title">D类世界</h2>
-        <div class="world-list">
-            <div class="world-card priority-Ε" id="D1">
-                <div class="world-id">D1　　　<span class="status-tag entropy-4">熵增4</span><span class="status-tag">规模D</span><span class="status-tag">本质量N</span></div>
-            </div>
-            <div class="world-card priority-Π" id="D2">
-                <div class="world-id">D2　　　<span class="status-tag entropy-5">熵增5</span><span class="status-tag">规模F</span><span class="status-tag">本质量O</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- E类世界 -->
-    <div class="letter-section" id="letter-E">
-        <h2 class="category-title">E类世界</h2>
-        <div class="world-list">
-            <div class="world-card priority-α" id="E1">
-                <div class="world-id">E1　　　<span class="status-tag entropy-4">熵增4</span><span class="status-tag">规模E</span><span class="status-tag">本质量P</span></div>
-            </div>
-            <div class="world-card priority-Σ" id="E2">
-                <div class="world-id">E2　　　<span class="status-tag entropy-3">熵增3</span><span class="status-tag">规模C</span><span class="status-tag">本质量Q</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 熵增0级世界 -->
-    <div class="letter-section" id="entropy-0">
-        <h2 class="category-title">0</h2>
-        <div class="world-list">
-            <div class="world-card priority-Ω" id="Z2">
-                <div class="world-id">Z2　　　<span class="status-tag entropy-0">熵增0</span><span class="status-tag">规模G</span><span class="status-tag">本质量V</span></div>
-            </div>
-            <div class="world-card priority-Ω" id="X8">
-                <div class="world-id">X8　　　<span class="status-tag entropy-0">熵增0</span><span class="status-tag">规模F</span><span class="status-tag">本质量W</span></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Γ级世界 -->
-    <div class="letter-section" id="priority-Γ">
-        <h2 class="category-title">Γ级世界 (持续关注)</h2>
-        <div class="world-list">
-            <div class="world-card priority-Γ" id="A3">
-                <div class="world-id">A3　　　<span class="status-tag entropy-3">熵增3</span><span class="status-tag">规模C</span><span class="status-tag">本质量H</span></div>
-            </div>
-            <div class="world-card priority-Γ" id="F4">
-                <div class="world-id">F4　　　<span class="status-tag entropy-4">熵增4</span><span class="status-tag">规模D</span><span class="status-tag">本质量S</span></div>
-            </div>
-        </div>
-    </div>
-
-
-    </div>    
-
-    <!-- 页脚 -->
-    <footer>
+        <!-- 世界列表分类展示 -->
         <div class="container">
-            <p>© 289.NHC 第二协议数据库 | 由SADBAI提供技术支持 | 最后更新: 289.NHC.25</p>
+            <!-- A类世界 -->
+            <div class="letter-section" id="letter-A">
+                <h2 class="category-title">A</h2>
+                <div class="world-list">
+                    <div class="world-card priority-Σ" id="A1">
+                        <div class="world-id">A1　　　<span class="status-tag entropy-4">熵增4</span><span
+                                class="status-tag">规模D</span><span class="status-tag">本质量Y</span></div>
+                    </div>
+                    <div class="world-card priority-α" id="A2">
+                        <div class="world-id">A2　　　<span class="status-tag entropy-5">熵增5</span><span
+                                class="status-tag">规模E</span><span class="status-tag">本质量J</span></div>
+                    </div>
+                    <div class="world-card priority-Γ" id="A3">
+                        <div class="world-id">A3　　　<span class="status-tag entropy-3">熵增3</span><span
+                                class="status-tag">规模C</span><span class="status-tag">本质量H</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- B类世界 -->
+            <div class="letter-section" id="letter-B">
+                <h2 class="category-title">B类世界</h2>
+                <div class="world-list">
+                    <div class="world-card priority-Ι" id="B1">
+                        <div class="world-id">B1　　　<span class="status-tag entropy-4">熵增4</span><span
+                                class="status-tag">规模F</span><span class="status-tag">本质量K</span></div>
+                    </div>
+                    <div class="world-card priority-β" id="B2">
+                        <div class="world-id">B2　　　<span class="status-tag entropy-6">熵增6</span><span
+                                class="status-tag">规模G</span><span class="status-tag">本质量M</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- C类世界 -->
+            <div class="letter-section" id="letter-C">
+                <h2 class="category-title">C类世界</h2>
+                <div class="world-list">
+                    <div class="world-card priority-Ν" id="C1">
+                        <div class="world-id">C1　　　<span class="status-tag entropy-5">熵增5</span><span
+                                class="status-tag">规模E</span><span class="status-tag">本质量L</span></div>
+                    </div>
+                    <div class="world-card priority-Θ" id="C2">
+                        <div class="world-id">C2　　　<span class="status-tag entropy-2">熵增2</span><span
+                                class="status-tag">规模B</span><span class="status-tag">本质量F</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D类世界 -->
+            <div class="letter-section" id="letter-D">
+                <h2 class="category-title">D类世界</h2>
+                <div class="world-list">
+                    <div class="world-card priority-Ε" id="D1">
+                        <div class="world-id">D1　　　<span class="status-tag entropy-4">熵增4</span><span
+                                class="status-tag">规模D</span><span class="status-tag">本质量N</span></div>
+                    </div>
+                    <div class="world-card priority-Π" id="D2">
+                        <div class="world-id">D2　　　<span class="status-tag entropy-5">熵增5</span><span
+                                class="status-tag">规模F</span><span class="status-tag">本质量O</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E类世界 -->
+            <div class="letter-section" id="letter-E">
+                <h2 class="category-title">E类世界</h2>
+                <div class="world-list">
+                    <div class="world-card priority-α" id="E1">
+                        <div class="world-id">E1　　　<span class="status-tag entropy-4">熵增4</span><span
+                                class="status-tag">规模E</span><span class="status-tag">本质量P</span></div>
+                    </div>
+                    <div class="world-card priority-Σ" id="E2">
+                        <div class="world-id">E2　　　<span class="status-tag entropy-3">熵增3</span><span
+                                class="status-tag">规模C</span><span class="status-tag">本质量Q</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 熵增0级世界 -->
+            <div class="letter-section" id="entropy-0">
+                <h2 class="category-title">0</h2>
+                <div class="world-list">
+                    <div class="world-card priority-Ω" id="Z2">
+                        <div class="world-id">Z2　　　<span class="status-tag entropy-0">熵增0</span><span
+                                class="status-tag">规模G</span><span class="status-tag">本质量V</span></div>
+                    </div>
+                    <div class="world-card priority-Ω" id="X8">
+                        <div class="world-id">X8　　　<span class="status-tag entropy-0">熵增0</span><span
+                                class="status-tag">规模F</span><span class="status-tag">本质量W</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Γ级世界 -->
+            <div class="letter-section" id="priority-Γ">
+                <h2 class="category-title">Γ级世界 (持续关注)</h2>
+                <div class="world-list">
+                    <div class="world-card priority-Γ" id="A3">
+                        <div class="world-id">A3　　　<span class="status-tag entropy-3">熵增3</span><span
+                                class="status-tag">规模C</span><span class="status-tag">本质量H</span></div>
+                    </div>
+                    <div class="world-card priority-Γ" id="F4">
+                        <div class="world-id">F4　　　<span class="status-tag entropy-4">熵增4</span><span
+                                class="status-tag">规模D</span><span class="status-tag">本质量S</span></div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
-    </footer>
+
+        <!-- 页脚 -->
+        <footer>
+            <div class="container">
+                <p>© 289.NHC 第二协议数据库 | 由SADBAI提供技术支持 | 最后更新: 289.NHC.25</p>
+            </div>
+        </footer>
 </body>
+
 </html>
