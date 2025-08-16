@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二协议 - 数据库上传</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .rules-section {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .rules-section h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+
+        .upload-form {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .small-input {
+            max-width: 300px;
+        }
+
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .mailto-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .mailto-btn:hover {
+            background-color: #1a252f;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .success-message {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .upload-form, .rules-section {
+                padding: 15px;
+            }
+            
+            .small-input {
+                max-width: 100%;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .submit-btn, .mailto-btn {
+                width: 100%;
+                margin-bottom: 10px;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>第二协议数据库上传</h1>
+            <p>知识共享 · 信息归档 · 多元宇宙协作</p>
+        </div>
+
+        <div class="rules-section">
+            <h2>提交规则与语言规范</h2>
+            <h3>提交规则：</h3>
+            <ol>
+                <li>上传者必须为第二协议正式成员</li>
+                <li>所有内容需符合《第二协议宪章》规定</li>
+                <li>涉密信息需标注保密等级</li>
+                <li>确保信息准确性，虚假信息将追责</li>
+                <li>每人每天最多提交5条记录</li>
+            </ol>
+            
+            <h3>语言规则：</h3>
+            <ul>
+                <li>使用通用语或原生世界标准语言</li>
+                <li>技术术语保持原文拼写</li>
+                <li>时间格式：宇宙标准时(UST)或原生世界时区</li>
+                <li>特殊名词首次出现需加注释</li>
+                <li>正文内容可分段，段落间空一行</li>
+            </ul>
+        </div>
+
+        <div class="upload-form">
+            <form id="dataUploadForm">
+                <div class="form-group">
+                    <label for="uploaderName">上传者姓名：</label>
+                    <input type="text" id="uploaderName" name="uploaderName" class="small-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="memberId">成员编号：</label>
+                    <input type="text" id="memberId" name="memberId" class="small-input" required placeholder="SA-XXXX-XX">
+                </div>
+                
+                <div class="form-group">
+                    <label for="keywords">关键词（多个关键词用逗号分隔）：</label>
+                    <input type="text" id="keywords" name="keywords" class="small-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timeInfo">时间/时间段：</label>
+                    <input type="text" id="timeInfo" name="timeInfo" class="small-input" placeholder="可留空或填写原文">
+                </div>
+                
+                <div class="form-group">
+                    <label for="content">正文内容：</label>
+                    <textarea id="content" name="content" required></textarea>
+                    <p style="font-size: 0.9em; color: #666;">提示：可分段输入，段落间空一行</p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button type="submit" class="submit-btn">生成并下载文件</button>
+                    <a href="#" id="mailtoBtn" class="mailto-btn">手动发送邮件</a>
+                </div>
+                
+                <div id="successMessage" class="success-message">
+                    文件生成成功！请检查下载或手动发送邮件。
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('dataUploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 收集表单数据
+            const formData = {
+                uploaderName: document.getElementById('uploaderName').value,
+                memberId: document.getElementById('memberId').value,
+                keywords: document.getElementById('keywords').value,
+                timeInfo: document.getElementById('timeInfo').value || '未指定',
+                content: document.getElementById('content').value
+            };
+            
+            // 生成TXT文件内容
+            let txtContent = `名字：${formData.uploaderName}（${formData.memberId}）\n`;
+            txtContent += `关键词：${formData.keywords}\n`;
+            txtContent += `时间：${formData.timeInfo}\n`;
+            txtContent += `正文：\n${formData.content}`;
+            
+            // 创建下载链接
+            const blob = new Blob([txtContent], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `第二协议数据_${formData.memberId}_${Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // 更新邮件链接
+            const mailtoLink = `mailto:3362365853@qq.com?subject=第二协议数据上传&body=请将生成的TXT文件作为附件发送&attachment=${encodeURIComponent(a.download)}`;
+            document.getElementById('mailtoBtn').href = mailtoLink;
+            
+            // 显示成功消息
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // 重置表单（可选）
+            // this.reset();
+        });
+
+        // 移动端邮件发送提示
+        document.getElementById('mailtoBtn').addEventListener('click', function(e) {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                alert('请在邮件应用中添加生成的TXT文件作为附件发送');
+            }
+        });
+    </script>
+</body>
+</html>
