@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态切换标题</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        
+        .gif-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .gif-container img {
+            max-width: 200px;
+            max-height: 200px;
+            width: 100%;
+            height: auto;
+        }
+        
+        .title-container {
+            text-align: center;
+            height: 60px;
+            width: 100%;
+            max-width: 90vw; /* 防止在小屏幕上溢出 */
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: opacity 1s ease-in-out;
+            white-space: nowrap; /* 确保单行显示 */
+            overflow: hidden;
+            text-overflow: ellipsis; /* 超出部分显示省略号 */
+            width: 100%;
+        }
+        
+        .title.active {
+            opacity: 1;
+        }
+
+        /* 响应式调整：手机端适配 */
+        @media (max-width: 600px) {
+            .gif-container img {
+                max-width: 150px;
+                max-height: 150px;
+            }
+            
+            .title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gif-container">
+        <img src="1.gif" alt="Loading GIF">
+    </div>
+    
+    <div class="title-container">
+        <div class="title" id="title1">正在连接SADBAI...</div>
+        <div class="title" id="title2">正在刷新世界之窗注册表...</div>
+        <div class="title" id="title3">正在加载起源碎片...</div>
+        <div class="title" id="title4">正在申请豁免权...</div>
+        <div class="title" id="title5">正在生成世界之窗...</div>
+    </div>
+
+    <script>
+        const titles = [
+            document.getElementById('title1'),
+            document.getElementById('title2'),
+            document.getElementById('title3'),
+            document.getElementById('title4'),
+            document.getElementById('title5')
+        ];
+        
+        let currentIndex = 0;
+        
+        // 初始化显示第一个标题
+        titles[currentIndex].classList.add('active');
+        
+        function rotateTitles() {
+            // 淡出当前标题
+            titles[currentIndex].classList.remove('active');
+            
+            // 移动到下一个标题
+            currentIndex = (currentIndex + 1) % titles.length;
+            
+            // 淡入新标题
+            titles[currentIndex].classList.add('active');
+        }
+        
+        // 每3秒切换一次标题
+        setInterval(rotateTitles, 3000);
+    </script>
+</body>
+</html>
