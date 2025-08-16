@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>官方通告 - 第二协议数据库</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 新增子页面专用样式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --sidebar-width: 250px;
+        }
+
+        /* 通告页面特有布局 */
+        .notice-container {
+            display: flex;
+            margin: 30px 0;
+            gap: 30px;
+        }
+
+        /* 左侧导航 */
+        .sidebar-nav {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .sidebar-nav h3 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .sidebar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-links a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-links a:hover,
+        .sidebar-links a.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* 右侧内容区 */
+        .content-area {
+            flex: 1;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        /* 通告条目样式 */
+        .notice-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: var(--bg-color);
+            transition: all 0.3s;
+        }
+
+        .notice-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .notice-item a {
+            text-decoration: none;
+            color: var(--text-color);
+        }
+
+        .notice-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .notice-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* 通告级别标签 */
+        .notice-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .level-urgent {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .level-important {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .level-normal {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .level-notice {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .notice-container {
+                flex-direction: column;
+            }
+
+            .sidebar-nav {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="header">
+            <h1>第二协议官方通告</h1>
+            <p>权威 · 及时 · 透明 - 多元宇宙信息发布中心</p>
+        </div>
+
+        <!-- 页眉留言 -->
+        <div class="header-message">
+            <marquee>【最新通告】《跨宇宙文明接触准则》v3.2已生效 | 通缉令：代号"影行者" | 新领地"晨曦界"开发计划公布</marquee>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <ul class="nav-links">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../tech/techlist.html">技术资料</a></li>
+                <li><a href="../world/list.html">世界列表</a></li>
+                <li><a href="#" class="highlight">官方通告</a></li>
+                <li><a href="../cct/cctfile.html">概念</a></li>
+                <li><a href="group.html">协议机构</a></li>
+                <li><a href="#">协议制度</a></li>
+            </ul>
+        </div>
+
+        <!-- 主要内容区 -->
+        <div class="notice-container">
+            <!-- 左侧导航 -->
+            <nav class="sidebar-nav">
+                <h3>通告分类</h3>
+                <ul class="sidebar-links">
+                    <li><a href="#all-notices" class="active">全部通告</a></li>
+                    <li><a href="#wanted">通缉令</a></li>
+                    <li><a href="#military">军事行动</a></li>
+                    <li><a href="#policy">政策法律</a></li>
+                    <li><a href="#territory">领地发展</a></li>
+                    <li><a href="#appointment">人事任命</a></li>
+                    <li><a href="#research">科研成果</a></li>
+                </ul>
+            </nav>
+
+            <!-- 右侧内容区 -->
+            <div class="content-area">
+                <!-- 全部通告 -->
+                <section id="all-notices">
+                    <h2>全部通告</h2>
+                    
+                    <div class="notice-item">
+                        <a href="notice/notice-001.html">
+                            <div class="notice-title">《跨宇宙文明接触准则》v3.2版发布</div>
+                            <div class="notice-meta">
+                                <span>发布时间：288.NHC.08.20</span>
+                                <span class="notice-level level-important">重要</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="notice-item">
+                        <a href="notice/wanted-045.html">
+                            <div class="notice-title">【通缉令】代号"影行者" - 悬赏5000源能点</div>
+                            <div class="notice-meta">
+                                <span>发布时间：288.NHC.08.18</span>
+                                <span class="notice-level level-urgent">紧急</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="notice-item">
+                        <a href="notice/military-112.html">
+                            <div class="notice-title">【军事行动】边境世界Ω-742防御作战报告</div>
+                            <div class="notice-meta">
+                                <span>发布时间：288.NHC.08.15</span>
+                                <span class="notice-level level-normal">普通</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="notice-item">
+                        <a href="notice/territory-033.html">
+                            <div class="notice-title">新领地"晨曦界"开发计划公告</div>
+                            <div class="notice-meta">
+                                <span>发布时间：288.NHC.08.10</span>
+                                <span class="notice-level level-notice">公告</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="notice-item">
+                        <a href="notice/policy-087.html">
+                            <div class="notice-title">《成员分级管理制度》修订草案征求意见</div>
+                            <div class="notice-meta">
+                                <span>发布时间：288.NHC.08.05</span>
+                                <span class="notice-level level-important">重要</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="notice-item">
+                        <a href="notice/research-156.html">
+                            <div class="notice-title">【科研成果】源能转换效率突破35%</div>
+                            <div class="notice-meta">
+                                <span>发布时间：288.NHC.08.01</span>
+                                <span class="notice-level level-normal">普通</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="notice-item">
+                        <a href="notice/appointment-022.html">
+                            <div class="notice-title">【人事任命】新任空间技术部部长公示</div>
+                            <div class="notice-meta">
+                                <span>发布时间：288.NHC.07.28</span>
+                                <span class="notice-level level-notice">公告</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- 通缉令分类 -->
+                <section id="wanted" style="display:none;">
+                    <h2>通缉令</h2>
+                    <!-- 内容将通过JavaScript动态加载 -->
+                </section>
+
+                <!-- 军事行动分类 -->
+                <section id="military" style="display:none;">
+                    <h2>军事行动</h2>
+                    <!-- 内容将通过JavaScript动态加载 -->
+                </section>
+
+                <!-- 更多分类... -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 简单的分类切换功能
+        document.querySelectorAll('.sidebar-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 更新活动状态
+                document.querySelectorAll('.sidebar-links a').forEach(a => {
+                    a.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // 隐藏所有内容区
+                document.querySelectorAll('.content-area > section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // 显示选中的内容区
+                const targetId = this.getAttribute('href').substring(1);
+                document.getElementById(targetId).style.display = 'block';
+            });
+        });
+    </script>
+</body>
+
+</html>
