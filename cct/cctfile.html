@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>协议制度 - 第二协议数据库</title>
+    <title>概念资料库 - 第二协议数据库</title>
     <link rel="stylesheet" href="../css/style.css">
     <style>
         /* 新增子页面专用样式 */
@@ -18,8 +18,8 @@
             --sidebar-width: 250px;
         }
 
-        /* 制度页面特有布局 */
-        .system-container {
+        /* 概念页面特有布局 */
+        .concept-container {
             display: flex;
             margin: 30px 0;
             gap: 30px;
@@ -93,6 +93,36 @@
             padding-bottom: 10px;
         }
 
+        /* 概念表格样式 */
+        .concept-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .concept-table th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .concept-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .concept-table tr:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        /* 概念分类颜色 */
+        .category-1 { color: #4CAF50; } /* 基础理论 - 绿色 */
+        .category-2 { color: #2196F3; } /* 宇宙科学 - 蓝色 */
+        .category-3 { color: #FF9800; } /* 能量原理 - 橙色 */
+        .category-4 { color: #F44336; } /* 空间法则 - 红色 */
+        .category-5 { color: #9C27B0; } /* 神秘知识 - 紫色 */
+
         /* 水平分割线样式 */
         hr {
             border: 0;
@@ -106,7 +136,7 @@
 
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .system-container {
+            .concept-container {
                 flex-direction: column;
             }
 
@@ -114,6 +144,11 @@
                 width: 100%;
                 position: static;
                 margin-bottom: 20px;
+            }
+            
+            .concept-table {
+                display: block;
+                overflow-x: auto;
             }
         }
     </style>
@@ -123,13 +158,13 @@
     <div class="container">
         <!-- 标题区 -->
         <div class="header">
-            <h1>都差不多，拿来充个数，回头再改</h1>
-            <p>这是概念列表</p>
+            <h1>第二协议概念资料库</h1>
+            <p>理解 · 探索 · 应用 - 多元宇宙理论研究中心</p>
         </div>
 
         <!-- 页眉留言 -->
         <div class="header-message">
-            <marquee>【制度更新】《跨宇宙文明接触准则》v3.2已生效 | 《熵增管控条例》修订草案征求意见中</marquee>
+            <marquee>【概念更新】"熵增理论"补充说明已发布 | "源能本质"研究新进展 | 新增概念："空间接触点"</marquee>
         </div>
 
         <!-- 导航栏 -->
@@ -138,104 +173,211 @@
                 <li><a href="../index.html">首页</a></li>
                 <li><a href="../tech/techlist.html">技术资料</a></li>
                 <li><a href="../world/list.html">世界列表</a></li>
-                <li><a href="#">官方通告</a></li>
-                <li><a href="#">概念</a></li>
+                <li><a href="#" >概念资料</a></li>
                 <li><a href="../work/group.html">协议机构</a></li>
-                <li><a href="../work/workm.html">协议制度</a></li>
-                <li><a href="#" class="highlight">协议宪章</a></li>
+                <li><a href="../work/workm.html">协议制度</a></li>                
+                <li><a href="#" class="highlight">协议制度</a></li>
             </ul>
         </div>
 
         <!-- 主要内容区 -->
-        <div class="system-container">
+        <div class="concept-container">
             <!-- 左侧导航 -->
             <nav class="sidebar-nav">
-                <h3>制度分类</h3>
+                <h3>概念分类</h3>
                 <ul class="sidebar-links">
-                    <li><a href="#basic-laws" class="active">基本法</a></li>
-                    <li><a href="#member-system">成员制度</a></li>
-                    <li><a href="#universe-management">宇宙管理</a></li>
-                    <li><a href="#tech-standards">技术标准</a></li>
-                    <li><a href="#safety-protocols">安全协议</a></li>
-                    <li><a href="#crisis-response">危机应对</a></li>
-                    <li><a href="#ethics-review">伦理审查</a></li>
+                    <li><a href="#basic-concepts" class="active">基础概念</a></li>
+                    <li><a href="#universe-theory">宇宙理论</a></li>
+                    <li><a href="#energy-theory">能量理论</a></li>
+                    <li><a href="#space-theory">空间理论</a></li>
+                    <li><a href="#life-theory">生命理论</a></li>
+                    <li><a href="#mystery-theory">神秘理论</a></li>
+                    <li><a href="#tech-principles">技术原理</a></li>
                 </ul>
             </nav>
 
             <!-- 右侧内容区 -->
             <div class="content-area">
-                <!-- 基本法部分 -->
-                <section id="basic-laws" class="content-section">
-                    <h2>《第二协议基本法》</h2>
-                    <p>第二协议是由多元宇宙文明共同制定的最高纲领性文件，确立以下基本原则：</p>
-                    <ul>
-                        <li><strong>平等原则：</strong>所有成员宇宙在协议框架内享有平等权利</li>
-                        <li><strong>不干涉原则：</strong>禁止以任何形式干涉文明自然发展进程</li>
-                        <li><strong>互助原则：</strong>对熵增危机中的文明提供必要援助</li>
-                        <li><strong>信息共享：</strong>非涉密技术成果应在协议内部分享</li>
-                    </ul>
-                    <p>基本法修正需经四分之三以上成员宇宙代表同意。</p>
+                <!-- 概念列表表格 -->
+                <section id="concept-list" class="content-section">
+                    
+                    
+                    
+                    <h2 id="basic-concepts">基础概念</h2>
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>概念名称</th>
+                                <th>相关领域</th>
+                                <th>分类</th>
+                                <th>更新时间</th>
+                                <th>记录者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#source-energy">源能(Source Energy)</a></td>
+                                <td>能量科学</td>
+                                <td class="category-1">基础理论</td>
+                                <td>288.NHC.08.15</td>
+                                <td>Administrator</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#cross-world">跨世界理论</a></td>
+                                <td>空间科学</td>
+                                <td class="category-1">基础理论</td>
+                                <td>288.NHC.07.15</td>
+                                <td>科研中心</td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+
+                    <h2 id="universe-theory">宇宙理论</h2>
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>概念名称</th>
+                                <th>相关领域</th>
+                                <th>分类</th>
+                                <th>更新时间</th>
+                                <th>记录者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#entropy">熵增理论</a></td>
+                                <td>宇宙演化</td>
+                                <td class="category-2">宇宙科学</td>
+                                <td>288.NHC.07.22</td>
+                                <td>科研中心</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#universe-level">宇宙分级系统</a></td>
+                                <td>宇宙分类</td>
+                                <td class="category-2">宇宙科学</td>
+                                <td>288.NHC.06.18</td>
+                                <td>观测站</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="energy-theory">能量理论</h2>
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>概念名称</th>
+                                <th>相关领域</th>
+                                <th>分类</th>
+                                <th>更新时间</th>
+                                <th>记录者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#energy-conversion">源能转换定律</a></td>
+                                <td>能量科学</td>
+                                <td class="category-3">能量原理</td>
+                                <td>288.NHC.05.12</td>
+                                <td>能源研究中心</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="space-theory">空间理论</h2>                   
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>概念名称</th>
+                                <th>相关领域</th>
+                                <th>分类</th>
+                                <th>更新时间</th>
+                                <th>记录者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#absolute-field">绝对力场原理</a></td>
+                                <td>空间防御</td>
+                                <td class="category-4">空间法则</td>
+                                <td>288.NHC.06.30</td>
+                                <td>技术部-空间组</td>
+                            </tr>
+                            <tr>
+                                <td><a href="#world-gate">世界之门机制</a></td>
+                                <td>空间通道</td>
+                                <td class="category-4">空间法则</td>
+                                <td>287.NHC.11.22</td>
+                                <td>空间技术部</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="life-theory">生命理论</h2>                    
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>概念名称</th>
+                                <th>相关领域</th>
+                                <th>分类</th>
+                                <th>更新时间</th>
+                                <th>记录者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#memory-container">记忆容器原理</a></td>
+                                <td>意识科学</td>
+                                <td class="category-5">神秘知识</td>
+                                <td>287.NHC.12.15</td>
+                                <td>绯珀商会</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="mystery-theory">神秘理论</h2>
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>概念名称</th>
+                                <th>相关领域</th>
+                                <th>分类</th>
+                                <th>更新时间</th>
+                                <th>记录者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#happy-yard">乐园现象</a></td>
+                                <td>异常空间</td>
+                                <td class="category-5">神秘知识</td>
+                                <td>287.NHC.10.05</td>
+                                <td>异管局</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2 id="tech-principles">技术原理</h2>
+                    <table class="concept-table">
+                        <thead>
+                            <tr>
+                                <th>概念名称</th>
+                                <th>相关领域</th>
+                                <th>分类</th>
+                                <th>更新时间</th>
+                                <th>记录者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#pdt-principle">PDT工作原理</a></td>
+                                <td>信息技术</td>
+                                <td class="category-1">基础理论</td>
+                                <td>288.NHC.07.10</td>
+                                <td>技术部</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </section>
-
-                <hr>
-
-                <!-- 成员制度部分 -->
-                <section id="member-system" class="content-section">
-                    <h2>《成员分级管理制度》</h2>
-                    <p>协议成员分为三个权限级别，实行贡献积分晋升制：</p>
-
-                    <h3>第一档成员（监督者）</h3>
-                    <p>拥有最高决策权，负责：</p>
-                    <ul>
-                        <li>协议发展方向制定</li>
-                        <li>重大危机事件处置</li>
-                        <li>新成员准入审核</li>
-                    </ul>
-
-                    <h3>第二档成员（执行者）</h3>
-                    <p>核心执行力量，负责：</p>
-                    <ul>
-                        <li>日常事务管理</li>
-                        <li>技术标准实施</li>
-                        <li>三档成员指导</li>
-                    </ul>
-
-                    <h3>第三档成员（协作者）</h3>
-                    <p>基础成员，享有：</p>
-                    <ul>
-                        <li>协议基础服务使用权</li>
-                        <li>技术资料查阅权</li>
-                        <li>提案建议权</li>
-                    </ul>
-                </section>
-
-                <hr>
-
-                <!-- 宇宙管理部分 -->
-                <section id="universe-management" class="content-section">
-                    <h2>《宇宙分级管理办法》</h2>
-                    <p>根据熵增状态和发展潜力，将宇宙分为：</p>
-
-                    <h3>Σ级宇宙（总部所在）</h3>
-                    <p>协议核心区域，实行：</p>
-                    <ul>
-                        <li>绝对力场防护</li>
-                        <li>跨宇宙航道枢纽</li>
-                        <li>全维度监控</li>
-                    </ul>
-
-                    <h3>Ω级宇宙（死亡宇宙）</h3>
-                    <p>仅保留观测站，禁止：</p>
-                    <ul>
-                        <li>物质提取</li>
-                        <li>时空改造</li>
-                        <li>大规模能量活动</li>
-                    </ul>
-
-                    <p>完整分类参见<a href="#">《宇宙评级标准》</a>附件1-7</p>
-                </section>
-
-                <!-- 更多内容区... -->
             </div>
         </div>
     </div>
