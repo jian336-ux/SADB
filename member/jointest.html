@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入第二协议 - 申请流程</title>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        .application-form {
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+        }
+
+        .form-section h2 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group label {
+            display: inline-block;
+            margin-left: 5px;
+            font-weight: normal;
+        }
+
+        .rules {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .rules p {
+            margin: 5px 0;
+        }
+
+        .submit-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--secondary-color);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>加入第二协议 - 申请流程</h1>
+            <p>探索 · 合作 · 共进 - 多元宇宙文明协作规范</p>
+        </div>
+
+        <div class="application-form">
+            <div class="rules">
+                <h2>协议原则</h2>
+                <p>我们是由诸天万界旅者组成的平等联盟，以「探索、合作、共进」为核心理念。成员间无等级压迫，但需共同遵守以下原则：</p>
+                <p>1. 禁止蓄意伤害协议成员及无辜者（违者由一档成员审判）</p>
+                <p>2. 禁止利用协议网络进行资源掠夺或世界破坏</p>
+                <p>3. 共享非机密探索情报（需标注保密等级）</p>
+                <p>4. 响应同级或上级成员的合理求助（SOS信号优先响应）</p>
+                <p>※ 完整法律详见《第二协议宪章》</p>
+            </div>
+
+            <form id="applicationForm">
+                <div class="form-section">
+                    <h2>基础信息</h2>
+                    
+                    <div class="form-group">
+                        <label for="name">姓名/代号：</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">接收邮箱地址：</label>
+                        <input type="email" id="email" name="email" required value="3362365853@qq.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>性别：</label>
+                        <div class="checkbox-group">
+                            <input type="radio" id="male" name="gender" value="男" checked>
+                            <label for="male">男</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="radio" id="female" name="gender" value="女">
+                            <label for="female">女</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="radio" id="other" name="gender" value="其他">
+                            <label for="other">其他（注明）：</label>
+                            <input type="text" id="otherGender" name="otherGender" style="width: 200px; display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="originWorld">原生世界编号/名称：</label>
+                        <input type="text" id="originWorld" name="originWorld" required placeholder="例：DP-W-114514-β">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="currentWorld">当前常驻世界：</label>
+                        <input type="text" id="currentWorld" name="currentWorld" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>能力备案</h2>
+                    
+                    <div class="form-group">
+                        <label>异能：</label>
+                        <div class="checkbox-group">
+                            <input type="radio" id="noAbility" name="ability" value="无" checked>
+                            <label for="noAbility">无</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="radio" id="hasAbility" name="ability" value="有">
+                            <label for="hasAbility">有（简述）：</label>
+                            <input type="text" id="abilityDesc" name="abilityDesc" style="width: 300px; display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>体质：</label>
+                        <div class="checkbox-group">
+                            <input type="radio" id="normalPhysique" name="physique" value="普通" checked>
+                            <label for="normalPhysique">普通</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="radio" id="enhancedPhysique" name="physique" value="强化">
+                            <label for="enhancedPhysique">强化（类型）：</label>
+                            <input type="text" id="physiqueType" name="physiqueType" style="width: 200px; display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialSkills">特殊技艺（如魔法、科技等）：</label>
+                        <input type="text" id="specialSkills" name="specialSkills">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="purpose">加入目的（限50字）：</label>
+                        <textarea id="purpose" name="purpose" maxlength="50" required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>协议确认</h2>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreeLaw" name="agreeLaw" required>
+                        <label for="agreeLaw">我承诺遵守协议法律，接受秩序维护者裁决</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="understandPromotion" name="understandPromotion" required>
+                        <label for="understandPromotion">我理解三档成员需通过贡献（情报/任务）晋升</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="authorizeVerify" name="authorizeVerify" required>
+                        <label for="authorizeVerify">我授权数据库在必要时验证我的基础信息</label>
+                    </div>
+                </div>
+
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-spinner"></div>
+                    <p>正在提交申请，请稍候...</p>
+                </div>
+
+                <div class="form-section">
+                    <button type="button" id="submitBtn" class="submit-btn">提交申请</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="footer">
+            <p>提交后3个工作日内将通过数据库节点反馈审核结果</p>
+            <p>紧急联系请前往最近据点呼叫「DPA-Admin-Proxy」</p>
+            <p>本申请最终解释权归第二协议所有</p>
+            <p>------ 多元宇宙的旅途上，愿与你同行。</p>
+            <p>第二协议 · 数据库中枢认证</p>
+        </div>
+    </div>
+
+    <script>
+        // 初始化EmailJS (您需要注册EmailJS并替换这些ID)
+        emailjs.init('Yokona336'); // 替换为您的EmailJS用户ID
+        
+        // 动态显示/隐藏其他性别输入框
+        document.querySelectorAll('input[name="gender"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('otherGender').style.display = 
+                    this.value === '其他' ? 'inline-block' : 'none';
+                if(this.value !== '其他') {
+                    document.getElementById('otherGender').value = '';
+                }
+            });
+        });
+
+        // 动态显示/隐藏异能描述输入框
+        document.querySelectorAll('input[name="ability"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('abilityDesc').style.display = 
+                    this.value === '有' ? 'inline-block' : 'none';
+                if(this.value !== '有') {
+                    document.getElementById('abilityDesc').value = '';
+                }
+            });
+        });
+
+        // 动态显示/隐藏体质类型输入框
+        document.querySelectorAll('input[name="physique"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('physiqueType').style.display = 
+                    this.value === '强化' ? 'inline-block' : 'none';
+                if(this.value !== '强化') {
+                    document.getElementById('physiqueType').value = '';
+                }
+            });
+        });
+
+        // 提交表单
+        document.getElementById('submitBtn').addEventListener('click', async function() {
+            // 验证表单
+            if (!document.getElementById('applicationForm').checkValidity()) {
+                alert('请填写所有必填字段');
+                return;
+            }
+
+            // 收集表单数据
+            const formData = {
+                name: document.getElementById('name').value || '无',
+                email: document.getElementById('email').value,
+                gender: document.querySelector('input[name="gender"]:checked').value === '其他' 
+                    ? '其他：' + (document.getElementById('otherGender').value || '无') 
+                    : document.querySelector('input[name="gender"]:checked').value,
+                originWorld: document.getElementById('originWorld').value || '无',
+                currentWorld: document.getElementById('currentWorld').value || '无',
+                ability: document.querySelector('input[name="ability"]:checked').value === '有'
+                    ? '有：' + (document.getElementById('abilityDesc').value || '无描述')
+                    : document.querySelector('input[name="ability"]:checked').value,
+                physique: document.querySelector('input[name="physique"]:checked').value === '强化'
+                    ? '强化：' + (document.getElementById('physiqueType').value || '无类型')
+                    : document.querySelector('input[name="physique"]:checked').value,
+                specialSkills: document.getElementById('specialSkills').value || '无',
+                purpose: document.getElementById('purpose').value || '无',
+                agreeLaw: document.getElementById('agreeLaw').checked ? '是' : '否',
+                understandPromotion: document.getElementById('understandPromotion').checked ? '是' : '否',
+                authorizeVerify: document.getElementById('authorizeVerify').checked ? '是' : '否',
+                timestamp: new Date().toLocaleString()
+            };
+            
+            // 生成TXT文件内容
+            let txtContent = `第二协议加入申请\n`;
+            txtContent += `生成时间: ${formData.timestamp}\n\n`;
+            txtContent += `姓名/代号: ${formData.name}\n`;
+            txtContent += `性别: ${formData.gender}\n`;
+            txtContent += `原生世界编号/名称: ${formData.originWorld}\n`;
+            txtContent += `当前常驻世界: ${formData.currentWorld}\n`;
+            txtContent += `异能: ${formData.ability}\n`;
+            txtContent += `体质: ${formData.physique}\n`;
+            txtContent += `特殊技艺: ${formData.specialSkills}\n`;
+            txtContent += `加入目的: ${formData.purpose}\n`;
+            txtContent += `同意遵守协议法律: ${formData.agreeLaw}\n`;
+            txtContent += `理解晋升机制: ${formData.understandPromotion}\n`;
+            txtContent += `授权信息验证: ${formData.authorizeVerify}\n`;
+            
+            try {
+                // 显示加载指示器
+                document.getElementById('loadingIndicator').style.display = 'block';
+                this.disabled = true;
+                
+                // 使用EmailJS发送邮件
+                const response = await emailjs.send('service_ziwxijq', 'template_5kvbr8s', {
+                    to_email: formData.email,
+                    from_name: '第二协议',
+                    subject: '第二协议加入申请',
+                    message: `管理员，新的申请者是${formData.name}。附件是申请副本。`,
+                    attachment: txtContent,
+                    filename: `第二协议申请_${formData.name}.txt`
+                });
+
+                alert('申请已提交！我们已将确认邮件发送至服务器。');
+            } catch (error) {
+                console.error('邮件发送失败:', error);
+                
+                // 如果邮件发送失败，提供下载选项
+                const shouldDownload = confirm('邮件发送失败，是否下载申请文件手动发送？');
+                if (shouldDownload) {
+                    const blob = new Blob([txtContent], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `第二协议申请_${formData.name}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }
+            } finally {
+                document.getElementById('loadingIndicator').style.display = 'none';
+                this.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
