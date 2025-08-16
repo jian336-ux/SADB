@@ -91,6 +91,30 @@
         textarea {
             min-height: 200px;
             resize: vertical;
+            /* 自定义滚动条样式 */
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #a0c4e8 #f1f1f1;
+        }
+
+        /* 自定义滚动条样式 - Webkit浏览器 */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        textarea::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+            background-color: #a0c4e8;
+            border-radius: 4px;
+            border: 1px solid #d1e0f0;
+        }
+
+        textarea::-webkit-scrollbar-thumb:hover {
+            background-color: #8ab3e0;
         }
 
         .content-textarea {
@@ -131,34 +155,11 @@
             background-color: #6c7a7d;
         }
 
-        .btn-success {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background-color: #219653;
-        }
-
         .footer {
             margin-top: 30px;
             text-align: center;
             font-style: italic;
             color: #7f8c8d;
-        }
-
-        @media (max-width: 600px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .btn {
-                width: 100%;
-            }
         }
 
         /* 成功消息 */
@@ -177,6 +178,20 @@
             background-color: #f8f9fa;
             border-radius: 4px;
             display: none;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -237,13 +252,12 @@
                 <div class="action-buttons">
                     <button type="button" id="generateBtn" class="btn btn-primary">生成数据文件</button>
                     <button type="button" id="downloadBtn" class="btn btn-secondary" disabled>下载TXT文件</button>
-                    <button type="button" id="shareBtn" class="btn btn-success" disabled>分享到社交应用（或许只有PC能用？</button>
                     <button type="button" id="emailBtn" class="btn btn-primary" disabled>通过邮件发送</button>
                 </div>
                 
                 <div id="successMessage" class="success-message">
                     <h3>文件生成成功！</h3>
-                    <p>请选择下载或分享选项</p>
+                    <p>请选择下载或邮件发送选项</p>
                 </div>
                 
                 <div id="filePreview" class="file-preview">
@@ -291,7 +305,6 @@
             
             // 启用按钮
             document.getElementById('downloadBtn').disabled = false;
-            document.getElementById('shareBtn').disabled = false;
             document.getElementById('emailBtn').disabled = false;
             
             // 显示成功消息
@@ -315,57 +328,19 @@
             URL.revokeObjectURL(url);
         });
         
-        // 分享到社交应用
-        document.getElementById('shareBtn').addEventListener('click', function() {
-            // 检查是否移动设备
-            if (navigator.share) {
-                // 移动设备使用Web Share API
-                navigator.share({
-                    title: '第二协议数据文件',
-                    text: '这是我生成的数据文件内容',
-                    url: URL.createObjectURL(new Blob([window.generatedFileContent], { type: 'text/plain' }))
-                }).catch(err => {
-                    console.log('分享取消:', err);
-                    alert('已取消分享');
-                });
-            } else {
-                // PC端提供QQ分享链接
-                const shareUrl = `https://connect.qq.com/widget/shareqq/index.html?url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent('第二协议数据文件')}&summary=${encodeURIComponent('这是我生成的数据文件')}`;
-                window.open(shareUrl, '_blank');
-            }
-        });
-        
         // 通过邮件发送
         document.getElementById('emailBtn').addEventListener('click', function() {
             const subject = `第二协议数据上传 - ${document.getElementById('uploaderName').value}`;
-            const body = `尊敬的数据库管理员：\n\n请查收附件中的数据文件。\n\n上传者：${document.getElementById('uploaderName').value}\n成员编号：${document.getElementById('memberId').value}\n\n------\n第二协议数据上传系统`;
+            const body = `尊敬的数据库管理员：\n\n以下是用户提交的数据文件内容：\n\n${window.generatedFileContent}\n\n------\n第二协议数据上传系统`;
             
-            if (/Mobi|Android|iPhone/i.test(navigator.userAgent)) {
-                // 移动设备
-                const blob = new Blob([window.generatedFileContent], { type: 'text/plain' });
-                const file = new File([blob], window.generatedFileName, { type: 'text/plain' });
-                
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    navigator.share({
-                        files: [file],
-                        title: subject,
-                        text: body
-                    }).catch(err => {
-                        console.log('分享取消:', err);
-                        fallbackEmail();
-                    });
-                } else {
-                    fallbackEmail();
-                }
-            } else {
-                // PC端
-                const mailtoLink = `mailto:3362365853@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                window.location.href = mailtoLink;
-            }
+            // 创建邮件链接
+            const mailtoLink = `mailto:3362365853@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             
-            function fallbackEmail() {
-                alert('请手动将生成的文件作为附件发送至：3362365853@qq.com');
-            }
+            // 打开邮件客户端
+            window.location.href = mailtoLink;
+            
+            // 显示提示信息
+            alert('邮件客户端已打开，请确认发送邮件内容。');
         });
     </script>
 </body>
