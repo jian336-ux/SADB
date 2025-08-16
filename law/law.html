@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>协议宪章 - 第二协议数据库</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 宪章页面特有样式 */
+        :root {
+            --primary-color: #0d47a1; /* 深蓝色 */
+            --secondary-color: #b71c1c; /* 暗红色 */
+            --accent-color: #00b0ff; /* 亮蓝色 */
+            --bg-color: #121212; /* 深灰背景 */
+            --card-color: #1e1e1e; /* 卡片背景 */
+            --text-color: #e0e0e0; /* 浅灰文字 */
+            --sidebar-width: 280px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        /* 宪章页面布局 */
+        .charter-container {
+            display: flex;
+            margin: 30px 0;
+            gap: 30px;
+        }
+
+        /* 左侧导航 */
+        .charter-sidebar {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .charter-sidebar h3 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .charter-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .charter-links li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .charter-links a {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .charter-links a:hover,
+        .charter-links a.active {
+            background-color: rgba(189, 189, 189, 0.1);
+            border-left: 3px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* 右侧内容区 */
+        .charter-content {
+            flex: 1;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .charter-section {
+            margin-bottom: 40px;
+        }
+
+        .charter-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .charter-section h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        /* 宪章条目样式 */
+        .charter-article {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: rgba(13, 71, 161, 0.05);
+            border-radius: 6px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .article-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .article-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            flex: 1;
+        }
+
+        .article-content {
+            padding-left: 45px;
+            line-height: 1.8;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .charter-container {
+                flex-direction: column;
+            }
+
+            .charter-sidebar {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* 特殊标题样式 */
+        .header h1 {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(0, 176, 255, 0.3);
+        }
+
+        .header p {
+            color: #b0bec5;
+        }
+
+        /* 导航栏样式调整 */
+        .navbar {
+            background-color: rgba(30, 30, 30, 0.9);
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .nav-links a {
+            color: #b0bec5;
+        }
+
+        .nav-links a.highlight {
+            color: var(--accent-color);
+            text-shadow: 0 0 5px rgba(0, 176, 255, 0.5);
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(13, 71, 161, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="header">
+            <h1>第二协议宪章</h1>
+            <p>至高 · 权威 · 永恒 - 多元宇宙最高纲领性文件</p>
+        </div>
+
+        <!-- 页眉留言 -->
+        <div class="header-message">
+            <marquee>【宪章声明】本宪章为第二协议最高法律，任何成员不得违反 | 最新修正：288.NHC.08.15</marquee>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <ul class="nav-links">
+                <li><a href="../index.html">首页</a></li>
+                <li><a href="../tech/techlist.html">技术资料</a></li>
+                <li><a href="../world/list.html">世界列表</a></li>
+                <li><a href="#">官方通告</a></li>
+                <li><a href="../cct/cctfile.html">概念</a></li>
+                <li><a href="group.html">协议机构</a></li>
+                <li><a href="#">协议制度</a></li>
+                <li><a href="#" class="highlight">协议宪章</a></li>
+            </ul>
+        </div>
+
+        <!-- 主要内容区 -->
+        <div class="charter-container">
+            <!-- 左侧导航 -->
+            <nav class="charter-sidebar">
+                <h3>宪章章节</h3>
+                <ul class="charter-links">
+                    <li><a href="#preamble" class="active">序言</a></li>
+                    <li><a href="#chapter1">第一章 总纲</a></li>
+                    <li><a href="#chapter2">第二章 成员权利与义务</a></li>
+                    <li><a href="#chapter3">第三章 组织机构</a></li>
+                    <li><a href="#chapter4">第四章 宇宙管理</a></li>
+                    <li><a href="#chapter5">第五章 修正程序</a></li>
+                </ul>
+            </nav>
+
+            <!-- 右侧内容区 -->
+            <div class="charter-content">
+                <!-- 序言 -->
+                <section id="preamble" class="charter-section">
+                    <h2>序言</h2>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">0</span>
+                            <span class="article-title">第二协议宪章序言</span>
+                        </div>
+                        <div class="article-content">
+                            <p>吾等多元宇宙之探索者，为建立永久和平之秩序，保障文明发展之权利，促进跨宇宙合作与进步，特制定本宪章，作为第二协议之最高法律。</p>
+                            <p>本宪章确认所有成员宇宙之平等地位，保障基本权利，规范组织运作，确立管理原则，以达探索、合作、共进之宗旨。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 第一章 总纲 -->
+                <section id="chapter1" class="charter-section">
+                    <h2>第一章 总纲</h2>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">1</span>
+                            <span class="article-title">第二协议性质</span>
+                        </div>
+                        <div class="article-content">
+                            <p>第二协议是由多元宇宙文明自愿组成的跨宇宙联盟组织，以探索、合作、共进为核心理念。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">2</span>
+                            <span class="article-title">法律地位</span>
+                        </div>
+                        <div class="article-content">
+                            <p>本宪章为第二协议之最高法律，任何成员宇宙之法律与本宪章冲突时，以本宪章为准。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">3</span>
+                            <span class="article-title">基本准则</span>
+                        </div>
+                        <div class="article-content">
+                            <ol>
+                                <li>平等原则：所有成员宇宙在协议框架内享有平等权利</li>
+                                <li>不干涉原则：禁止以任何形式干涉文明自然发展进程</li>
+                                <li>互助原则：对熵增危机中的文明提供必要援助</li>
+                                <li>信息共享：非涉密技术成果应在协议内部分享</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">4</span>
+                            <span class="article-title">总部所在地</span>
+                        </div>
+                        <div class="article-content">
+                            <p>第二协议总部设立于Σ级核心宇宙「新黎明」，享有绝对外交豁免权及自治权。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">5</span>
+                            <span class="article-title">官方语言</span>
+                        </div>
+                        <div class="article-content">
+                            <p>第二协议官方语言为通用语，各成员宇宙可保留其原生语言。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 第二章 成员权利与义务 -->
+                <section id="chapter2" class="charter-section">
+                    <h2>第二章 成员权利与义务</h2>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">6</span>
+                            <span class="article-title">成员资格</span>
+                        </div>
+                        <div class="article-content">
+                            <p>任何达到星际文明阶段的智慧种族均可申请加入第二协议，需经现有成员三分之二多数同意。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">7</span>
+                            <span class="article-title">基本权利</span>
+                        </div>
+                        <div class="article-content">
+                            <ol>
+                                <li>参与协议事务决策权</li>
+                                <li>使用协议公共设施权</li>
+                                <li>获得技术援助权</li>
+                                <li>申请危机救援权</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">8</span>
+                            <span class="article-title">基本义务</span>
+                        </div>
+                        <div class="article-content">
+                            <ol>
+                                <li>遵守本宪章及协议法律</li>
+                                <li>缴纳会费（源能或等价资源）</li>
+                                <li>提供必要情报共享</li>
+                                <li>参与集体防御行动</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">9</span>
+                            <span class="article-title">成员退出</span>
+                        </div>
+                        <div class="article-content">
+                            <p>成员宇宙可自愿退出第二协议，需提前一个标准年通知，并完成所有未履行义务。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">10</span>
+                            <span class="article-title">成员除名</span>
+                        </div>
+                        <div class="article-content">
+                            <p>严重违反宪章之成员，经最高议会四分之三多数表决可予以除名，并实施相应制裁。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 第三章 组织机构 -->
+                <section id="chapter3" class="charter-section">
+                    <h2>第三章 组织机构</h2>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">11</span>
+                            <span class="article-title">最高议会</span>
+                        </div>
+                        <div class="article-content">
+                            <p>最高议会为第二协议最高决策机构，由各成员宇宙代表组成，每标准年召开一次全会。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">12</span>
+                            <span class="article-title">执行委员会</span>
+                        </div>
+                        <div class="article-content">
+                            <p>执行委员会负责日常事务管理，由7名委员组成，任期5个标准年，可连任一次。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">13</span>
+                            <span class="article-title">司法仲裁院</span>
+                        </div>
+                        <div class="article-content">
+                            <p>司法仲裁院负责解释宪章、裁决争端，由9名大法官组成，任期终身。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">14</span>
+                            <span class="article-title">军事指挥部</span>
+                        </div>
+                        <div class="article-content">
+                            <p>军事指挥部负责集体防御与危机应对，由各成员宇宙军事代表组成联合参谋部。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">15</span>
+                            <span class="article-title">科研中心</span>
+                        </div>
+                        <div class="article-content">
+                            <p>科研中心负责协调跨宇宙研究项目，推动技术进步，下设多个专业研究所。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 第四章 宇宙管理 -->
+                <section id="chapter4" class="charter-section">
+                    <h2>第四章 宇宙管理</h2>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">16</span>
+                            <span class="article-title">宇宙分级</span>
+                        </div>
+                        <div class="article-content">
+                            <p>所有已知宇宙按熵增状态分为9级，从Σ级(核心宇宙)到Ω级(死亡宇宙)，实行分类管理。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">17</span>
+                            <span class="article-title">宇宙权利</span>
+                        </div>
+                        <div class="article-content">
+                            <ol>
+                                <li>自主发展权</li>
+                                <li>资源主权</li>
+                                <li>文化保护权</li>
+                                <li>安全防卫权</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">18</span>
+                            <span class="article-title">宇宙义务</span>
+                        </div>
+                        <div class="article-content">
+                            <ol>
+                                <li>维护宇宙稳定</li>
+                                <li>防止技术滥用</li>
+                                <li>控制熵增速度</li>
+                                <li>保护智慧生命</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">19</span>
+                            <span class="article-title">特殊区域</span>
+                        </div>
+                        <div class="article-content">
+                            <p>超空间航道、世界之门等关键设施所在区域为协议特殊管理区，由第二协议直接管辖。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">20</span>
+                            <span class="article-title">危机干预</span>
+                        </div>
+                        <div class="article-content">
+                            <p>当宇宙面临熵增危机或重大安全威胁时，第二协议有权实施干预措施。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 第五章 修正程序 -->
+                <section id="chapter5" class="charter-section">
+                    <h2>第五章 修正程序</h2>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">21</span>
+                            <span class="article-title">修正提案</span>
+                        </div>
+                        <div class="article-content">
+                            <p>任何成员宇宙或协议机构均可提出宪章修正案，需获得至少十分之一成员联署。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">22</span>
+                            <span class="article-title">审议程序</span>
+                        </div>
+                        <div class="article-content">
+                            <p>修正案需经司法仲裁院合宪性审查后，提交最高议会审议。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">23</span>
+                            <span class="article-title">表决要求</span>
+                        </div>
+                        <div class="article-content">
+                            <p>宪章修正需经最高议会四分之三多数成员同意，并在三个标准年内无重大反对意见。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">24</span>
+                            <span class="article-title">生效条件</span>
+                        </div>
+                        <div class="article-content">
+                            <p>修正案经Administrator签署后生效，自动纳入宪章正文。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="charter-article">
+                        <div class="article-header">
+                            <span class="article-number">25</span>
+                            <span class="article-title">宪章永恒性</span>
+                        </div>
+                        <div class="article-content">
+                            <p>本宪章之基本原则与精神永恒不变，任何修正不得违背探索、合作、共进之宗旨。</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
