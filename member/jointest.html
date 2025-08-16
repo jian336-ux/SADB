@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>加入第二协议 - 申请流程</title>
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -72,7 +71,8 @@
 
         input[type="text"],
         input[type="email"],
-        textarea {
+        textarea,
+        select {
             width: 100%;
             padding: 8px 12px;
             border: 1px solid #ddd;
@@ -96,6 +96,16 @@
             font-weight: normal;
         }
 
+        .radio-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
         .rules {
             background-color: #f8f9fa;
             border-left: 4px solid var(--accent-color);
@@ -107,19 +117,37 @@
             margin: 5px 0;
         }
 
-        .submit-btn {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
             padding: 12px 25px;
             font-size: 1rem;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            border: none;
         }
 
-        .submit-btn:hover {
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
             background-color: #2980b9;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
         }
 
         .footer {
@@ -129,25 +157,25 @@
             color: #7f8c8d;
         }
 
-        .loading {
+        .hidden {
             display: none;
+        }
+
+        .success-message {
             text-align: center;
+            color: #4CAF50;
+            font-weight: bold;
             margin: 20px 0;
         }
 
-        .loading-spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 4px solid var(--secondary-color);
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @media (max-width: 600px) {
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -179,24 +207,19 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">接收邮箱地址：</label>
-                        <input type="email" id="email" name="email" required value="3362365853@qq.com">
-                    </div>
-                    
-                    <div class="form-group">
                         <label>性别：</label>
-                        <div class="checkbox-group">
+                        <div class="radio-group">
                             <input type="radio" id="male" name="gender" value="男" checked>
                             <label for="male">男</label>
                         </div>
-                        <div class="checkbox-group">
+                        <div class="radio-group">
                             <input type="radio" id="female" name="gender" value="女">
                             <label for="female">女</label>
                         </div>
-                        <div class="checkbox-group">
+                        <div class="radio-group">
                             <input type="radio" id="other" name="gender" value="其他">
                             <label for="other">其他（注明）：</label>
-                            <input type="text" id="otherGender" name="otherGender" style="width: 200px; display: none;">
+                            <input type="text" id="otherGender" name="otherGender" class="hidden">
                         </div>
                     </div>
                     
@@ -216,27 +239,27 @@
                     
                     <div class="form-group">
                         <label>异能：</label>
-                        <div class="checkbox-group">
+                        <div class="radio-group">
                             <input type="radio" id="noAbility" name="ability" value="无" checked>
                             <label for="noAbility">无</label>
                         </div>
-                        <div class="checkbox-group">
+                        <div class="radio-group">
                             <input type="radio" id="hasAbility" name="ability" value="有">
                             <label for="hasAbility">有（简述）：</label>
-                            <input type="text" id="abilityDesc" name="abilityDesc" style="width: 300px; display: none;">
+                            <input type="text" id="abilityDesc" name="abilityDesc" class="hidden">
                         </div>
                     </div>
                     
                     <div class="form-group">
                         <label>体质：</label>
-                        <div class="checkbox-group">
+                        <div class="radio-group">
                             <input type="radio" id="normalPhysique" name="physique" value="普通" checked>
                             <label for="normalPhysique">普通</label>
                         </div>
-                        <div class="checkbox-group">
+                        <div class="radio-group">
                             <input type="radio" id="enhancedPhysique" name="physique" value="强化">
                             <label for="enhancedPhysique">强化（类型）：</label>
-                            <input type="text" id="physiqueType" name="physiqueType" style="width: 200px; display: none;">
+                            <input type="text" id="physiqueType" name="physiqueType" class="hidden">
                         </div>
                     </div>
                     
@@ -270,15 +293,16 @@
                     </div>
                 </div>
 
-                <div class="loading" id="loadingIndicator">
-                    <div class="loading-spinner"></div>
-                    <p>正在提交申请，请稍候...</p>
-                </div>
-
-                <div class="form-section">
-                    <button type="button" id="submitBtn" class="submit-btn">提交申请</button>
+                <div class="action-buttons">
+                    <button type="button" id="downloadBtn" class="btn btn-secondary">下载申请书</button>
+                    <button type="button" id="emailBtn" class="btn btn-primary">通过邮件发送</button>
                 </div>
             </form>
+
+            <div id="successMessage" class="success-message hidden">
+                <h3>操作成功！</h3>
+                <p id="successText"></p>
+            </div>
         </div>
 
         <div class="footer">
@@ -291,16 +315,17 @@
     </div>
 
     <script>
-        // 初始化EmailJS (您需要注册EmailJS并替换这些ID)
-        emailjs.init('DHqfzT3iKXea7aCtq'); // 替换为您的EmailJS用户ID
-        
         // 动态显示/隐藏其他性别输入框
         document.querySelectorAll('input[name="gender"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                document.getElementById('otherGender').style.display = 
-                    this.value === '其他' ? 'inline-block' : 'none';
-                if(this.value !== '其他') {
-                    document.getElementById('otherGender').value = '';
+                const otherGenderInput = document.getElementById('otherGender');
+                if (this.value === '其他') {
+                    otherGenderInput.classList.remove('hidden');
+                    otherGenderInput.required = true;
+                } else {
+                    otherGenderInput.classList.add('hidden');
+                    otherGenderInput.required = false;
+                    otherGenderInput.value = '';
                 }
             });
         });
@@ -308,10 +333,14 @@
         // 动态显示/隐藏异能描述输入框
         document.querySelectorAll('input[name="ability"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                document.getElementById('abilityDesc').style.display = 
-                    this.value === '有' ? 'inline-block' : 'none';
-                if(this.value !== '有') {
-                    document.getElementById('abilityDesc').value = '';
+                const abilityDescInput = document.getElementById('abilityDesc');
+                if (this.value === '有') {
+                    abilityDescInput.classList.remove('hidden');
+                    abilityDescInput.required = true;
+                } else {
+                    abilityDescInput.classList.add('hidden');
+                    abilityDescInput.required = false;
+                    abilityDescInput.value = '';
                 }
             });
         });
@@ -319,26 +348,23 @@
         // 动态显示/隐藏体质类型输入框
         document.querySelectorAll('input[name="physique"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                document.getElementById('physiqueType').style.display = 
-                    this.value === '强化' ? 'inline-block' : 'none';
-                if(this.value !== '强化') {
-                    document.getElementById('physiqueType').value = '';
+                const physiqueTypeInput = document.getElementById('physiqueType');
+                if (this.value === '强化') {
+                    physiqueTypeInput.classList.remove('hidden');
+                    physiqueTypeInput.required = true;
+                } else {
+                    physiqueTypeInput.classList.add('hidden');
+                    physiqueTypeInput.required = false;
+                    physiqueTypeInput.value = '';
                 }
             });
         });
 
-        // 提交表单
-        document.getElementById('submitBtn').addEventListener('click', async function() {
-            // 验证表单
-            if (!document.getElementById('applicationForm').checkValidity()) {
-                alert('请填写所有必填字段');
-                return;
-            }
-
+        // 生成申请文件内容
+        function generateApplicationFile() {
             // 收集表单数据
             const formData = {
                 name: document.getElementById('name').value || '无',
-                email: document.getElementById('email').value,
                 gender: document.querySelector('input[name="gender"]:checked').value === '其他' 
                     ? '其他：' + (document.getElementById('otherGender').value || '无') 
                     : document.querySelector('input[name="gender"]:checked').value,
@@ -359,56 +385,66 @@
             };
             
             // 生成TXT文件内容
-            let txtContent = `第二协议加入申请\n`;
-            txtContent += `生成时间: ${formData.timestamp}\n\n`;
-            txtContent += `姓名/代号: ${formData.name}\n`;
-            txtContent += `性别: ${formData.gender}\n`;
-            txtContent += `原生世界编号/名称: ${formData.originWorld}\n`;
-            txtContent += `当前常驻世界: ${formData.currentWorld}\n`;
-            txtContent += `异能: ${formData.ability}\n`;
-            txtContent += `体质: ${formData.physique}\n`;
-            txtContent += `特殊技艺: ${formData.specialSkills}\n`;
-            txtContent += `加入目的: ${formData.purpose}\n`;
-            txtContent += `同意遵守协议法律: ${formData.agreeLaw}\n`;
-            txtContent += `理解晋升机制: ${formData.understandPromotion}\n`;
-            txtContent += `授权信息验证: ${formData.authorizeVerify}\n`;
+            let fileContent = `第二协议加入申请\n`;
+            fileContent += `生成时间: ${formData.timestamp}\n\n`;
+            fileContent += `姓名/代号: ${formData.name}\n`;
+            fileContent += `性别: ${formData.gender}\n`;
+            fileContent += `原生世界编号/名称: ${formData.originWorld}\n`;
+            fileContent += `当前常驻世界: ${formData.currentWorld}\n`;
+            fileContent += `异能: ${formData.ability}\n`;
+            fileContent += `体质: ${formData.physique}\n`;
+            fileContent += `特殊技艺: ${formData.specialSkills}\n`;
+            fileContent += `加入目的: ${formData.purpose}\n`;
+            fileContent += `同意遵守协议法律: ${formData.agreeLaw}\n`;
+            fileContent += `理解晋升机制: ${formData.understandPromotion}\n`;
+            fileContent += `授权信息验证: ${formData.authorizeVerify}\n`;
             
-            try {
-                // 显示加载指示器
-                document.getElementById('loadingIndicator').style.display = 'block';
-                this.disabled = true;
-                
-                // 使用EmailJS发送邮件
-                const response = await emailjs.send('service_ziwxijq', 'template_5kvbr8s', {
-                    to_email: 'sj3362365853@outlook.com',
-                    from_name: '第二协议',
-                    subject: '第二协议加入申请',
-                    message: `管理员，新的申请者是${formData.name}。附件是申请副本。`,
-                    attachment: txtContent,
-                    filename: `第二协议申请_${formData.name}.txt`
-                });
+            return {
+                content: fileContent,
+                applicantName: formData.name
+            };
+        }
 
-                alert('申请已提交！我们已将确认邮件发送至服务器。');
-            } catch (error) {
-                console.error('邮件发送失败:', error);
-                
-                // 如果邮件发送失败，提供下载选项
-                const shouldDownload = confirm('邮件发送失败，是否下载申请文件手动发送？');
-                if (shouldDownload) {
-                    const blob = new Blob([txtContent], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `第二协议申请_${formData.name}.txt`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                }
-            } finally {
-                document.getElementById('loadingIndicator').style.display = 'none';
-                this.disabled = false;
+        // 下载申请书
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            if (!document.getElementById('applicationForm').checkValidity()) {
+                alert('请填写所有必填字段');
+                return;
             }
+
+            const application = generateApplicationFile();
+            const blob = new Blob([application.content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `第二协议申请_${application.applicantName}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // 显示成功消息
+            document.getElementById('successText').textContent = '申请书已下载，请将文件发送至管理员完成申请。';
+            document.getElementById('successMessage').classList.remove('hidden');
+        });
+
+        // 通过邮件发送
+        document.getElementById('emailBtn').addEventListener('click', function() {
+            if (!document.getElementById('applicationForm').checkValidity()) {
+                alert('请填写所有必填字段');
+                return;
+            }
+
+            const application = generateApplicationFile();
+            const subject = `申请书：${application.applicantName}`;
+            const body = `申请书：${application.applicantName}\n\n${application.content}`;
+            const mailtoLink = `mailto:3362365853@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            window.location.href = mailtoLink;
+            
+            // 显示成功消息
+            document.getElementById('successText').textContent = '邮件客户端已打开，请确认发送邮件。';
+            document.getElementById('successMessage').classList.remove('hidden');
         });
     </script>
 </body>
