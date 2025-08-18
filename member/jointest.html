@@ -71,6 +71,7 @@
 
         input[type="text"],
         input[type="email"],
+        input[type="number"],
         textarea,
         select {
             width: 100%;
@@ -172,7 +173,7 @@
             .action-buttons {
                 flex-direction: column;
             }
-            
+
             .btn {
                 width: 100%;
             }
@@ -200,12 +201,12 @@
             <form id="applicationForm">
                 <div class="form-section">
                     <h2>基础信息</h2>
-                    
+
                     <div class="form-group">
                         <label for="name">姓名/代号：</label>
                         <input type="text" id="name" name="name" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label>性别：</label>
                         <div class="radio-group">
@@ -222,71 +223,195 @@
                             <input type="text" id="otherGender" name="otherGender" class="hidden">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="originWorld">原生世界编号/名称：</label>
+                        <label for="age">年龄：</label>
+                        <input type="number" id="age" name="age" min="1" max="999" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="race">种族：</label>
+                        <input type="text" id="race" name="race" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="height">身高（cm）：</label>
+                        <input type="number" id="height" name="height" min="1" max="999" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight">体重（kg）：</label>
+                        <input type="number" id="weight" name="weight" min="1" max="999" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="language">使用语言：</label>
+                        <select id="language" name="language" required>
+                            <option value="人类语">人类语</option>
+                            <option value="艾嘉多尔语">艾嘉多尔语</option>
+                            <option value="雅哥布达雅语">雅哥布达雅语</option>
+                            <option value="其他">其他（请注明）</option>
+                        </select>
+                        <input type="text" id="otherLanguage" name="otherLanguage" class="hidden" placeholder="请注明其他语言">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>世界信息</h2>
+
+                    <div class="form-group">
+                        <label for="originWorld">原生世界编号：</label>
                         <input type="text" id="originWorld" name="originWorld" required placeholder="例：DP-W-114514-β">
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="currentWorld">当前常驻世界：</label>
+                        <label for="currentWorld">常驻世界编号：</label>
                         <input type="text" id="currentWorld" name="currentWorld" required>
                     </div>
                 </div>
 
                 <div class="form-section">
-                    <h2>能力备案</h2>
-                    
+                    <h2>背景信息</h2>
+
                     <div class="form-group">
-                        <label>异能：</label>
+                        <label for="previousOccupation">前职业：</label>
+                        <input type="text" id="previousOccupation" name="previousOccupation" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>是否拥有异能：</label>
                         <div class="radio-group">
-                            <input type="radio" id="noAbility" name="ability" value="无" checked>
-                            <label for="noAbility">无</label>
+                            <input type="radio" id="noAbility" name="ability" value="否" checked>
+                            <label for="noAbility">否</label>
                         </div>
                         <div class="radio-group">
-                            <input type="radio" id="hasAbility" name="ability" value="有">
-                            <label for="hasAbility">有（简述）：</label>
+                            <input type="radio" id="hasAbility" name="ability" value="是">
+                            <label for="hasAbility">是（描述）：</label>
                             <input type="text" id="abilityDesc" name="abilityDesc" class="hidden">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label>体质：</label>
+                        <label>是否有保证人：</label>
                         <div class="radio-group">
-                            <input type="radio" id="normalPhysique" name="physique" value="普通" checked>
-                            <label for="normalPhysique">普通</label>
+                            <input type="radio" id="noGuarantor" name="guarantor" value="否" checked>
+                            <label for="noGuarantor">否</label>
                         </div>
                         <div class="radio-group">
-                            <input type="radio" id="enhancedPhysique" name="physique" value="强化">
-                            <label for="enhancedPhysique">强化（类型）：</label>
-                            <input type="text" id="physiqueType" name="physiqueType" class="hidden">
+                            <input type="radio" id="hasGuarantor" name="guarantor" value="是">
+                            <label for="hasGuarantor">是（姓名/代号）：</label>
+                            <input type="text" id="guarantorName" name="guarantorName" class="hidden">
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="specialSkills">特殊技艺（如魔法、科技等）：</label>
-                        <input type="text" id="specialSkills" name="specialSkills">
+                        <label>是否受过教育：</label>
+                        <div class="radio-group">
+                            <input type="radio" id="noEducation" name="education" value="否" checked>
+                            <label for="noEducation">否</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="hasEducation" name="education" value="是">
+                            <label for="hasEducation">是（描述）：</label>
+                            <input type="text" id="educationDesc" name="educationDesc" class="hidden">
+                        </div>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="purpose">加入目的（限50字）：</label>
-                        <textarea id="purpose" name="purpose" maxlength="50" required></textarea>
+                        <label>是否有过通缉案底：</label>
+                        <div class="radio-group">
+                            <input type="radio" id="noCriminalRecord" name="criminalRecord" value="否" checked>
+                            <label for="noCriminalRecord">否</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="hasCriminalRecord" name="criminalRecord" value="是">
+                            <label for="hasCriminalRecord">是（描述）：</label>
+                            <input type="text" id="criminalRecordDesc" name="criminalRecordDesc" class="hidden">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>体质是否经过强化：</label>
+                        <div class="radio-group">
+                            <input type="radio" id="noEnhancedPhysique" name="enhancedPhysique" value="否" checked>
+                            <label for="noEnhancedPhysique">否</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="hasEnhancedPhysique" name="enhancedPhysique" value="是">
+                            <label for="hasEnhancedPhysique">是（类型）：</label>
+                            <input type="text" id="enhancedPhysiqueType" name="enhancedPhysiqueType" class="hidden">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="specialSkills">特殊技艺：</label>
+                        <input type="text" id="specialSkills" name="specialSkills" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>是否从事文员工作：</label>
+                        <div class="radio-group">
+                            <input type="radio" id="noClerkWork" name="clerkWork" value="否" checked>
+                            <label for="noClerkWork">否</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="hasClerkWork" name="clerkWork" value="是">
+                            <label for="hasClerkWork">是</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="unsureClerkWork" name="clerkWork" value="不确定">
+                            <label for="unsureClerkWork">不确定</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>是否有居住地：</label>
+                        <div class="radio-group">
+                            <input type="radio" id="noResidence" name="residence" value="否" checked>
+                            <label for="noResidence">否</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="hasResidence" name="residence" value="是">
+                            <label for="hasResidence">是（地址）：</label>
+                            <input type="text" id="residenceAddress" name="residenceAddress" class="hidden">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>是否有联系方式：</label>
+                        <div class="radio-group">
+                            <input type="radio" id="noContact" name="contact" value="否" checked>
+                            <label for="noContact">否</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="hasContact" name="contact" value="是">
+                            <label for="hasContact">是（通讯号码）：</label>
+                            <input type="text" id="contactNumber" name="contactNumber" class="hidden">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>加入理由</h2>
+                    <div class="form-group">
+                        <label for="reason">请说明加入理由（限100字）：</label>
+                        <textarea id="reason" name="reason" maxlength="100" required></textarea>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <h2>协议确认</h2>
-                    
+
                     <div class="checkbox-group">
                         <input type="checkbox" id="agreeLaw" name="agreeLaw" required>
                         <label for="agreeLaw">我承诺遵守协议法律，接受秩序维护者裁决</label>
                     </div>
-                    
+
                     <div class="checkbox-group">
                         <input type="checkbox" id="understandPromotion" name="understandPromotion" required>
                         <label for="understandPromotion">我理解三档成员需通过贡献（情报/任务）晋升</label>
                     </div>
-                    
+
                     <div class="checkbox-group">
                         <input type="checkbox" id="authorizeVerify" name="authorizeVerify" required>
                         <label for="authorizeVerify">我授权数据库在必要时验证我的基础信息</label>
@@ -330,11 +455,24 @@
             });
         });
 
+        // 动态显示/隐藏其他语言输入框
+        document.getElementById('language').addEventListener('change', function() {
+            const otherLanguageInput = document.getElementById('otherLanguage');
+            if (this.value === '其他') {
+                otherLanguageInput.classList.remove('hidden');
+                otherLanguageInput.required = true;
+            } else {
+                otherLanguageInput.classList.add('hidden');
+                otherLanguageInput.required = false;
+                otherLanguageInput.value = '';
+            }
+        });
+
         // 动态显示/隐藏异能描述输入框
         document.querySelectorAll('input[name="ability"]').forEach(radio => {
             radio.addEventListener('change', function() {
                 const abilityDescInput = document.getElementById('abilityDesc');
-                if (this.value === '有') {
+                if (this.value === '是') {
                     abilityDescInput.classList.remove('hidden');
                     abilityDescInput.required = true;
                 } else {
@@ -345,17 +483,92 @@
             });
         });
 
-        // 动态显示/隐藏体质类型输入框
-        document.querySelectorAll('input[name="physique"]').forEach(radio => {
+        // 动态显示/隐藏保证人姓名输入框
+        document.querySelectorAll('input[name="guarantor"]').forEach(radio => {
             radio.addEventListener('change', function() {
-                const physiqueTypeInput = document.getElementById('physiqueType');
-                if (this.value === '强化') {
-                    physiqueTypeInput.classList.remove('hidden');
-                    physiqueTypeInput.required = true;
+                const guarantorNameInput = document.getElementById('guarantorName');
+                if (this.value === '是') {
+                    guarantorNameInput.classList.remove('hidden');
+                    guarantorNameInput.required = true;
                 } else {
-                    physiqueTypeInput.classList.add('hidden');
-                    physiqueTypeInput.required = false;
-                    physiqueTypeInput.value = '';
+                    guarantorNameInput.classList.add('hidden');
+                    guarantorNameInput.required = false;
+                    guarantorNameInput.value = '';
+                }
+            });
+        });
+
+        // 动态显示/隐藏教育描述输入框
+        document.querySelectorAll('input[name="education"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const educationDescInput = document.getElementById('educationDesc');
+                if (this.value === '是') {
+                    educationDescInput.classList.remove('hidden');
+                    educationDescInput.required = true;
+                } else {
+                    educationDescInput.classList.add('hidden');
+                    educationDescInput.required = false;
+                    educationDescInput.value = '';
+                }
+            });
+        });
+
+        // 动态显示/隐藏案底描述输入框
+        document.querySelectorAll('input[name="criminalRecord"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const criminalRecordDescInput = document.getElementById('criminalRecordDesc');
+                if (this.value === '是') {
+                    criminalRecordDescInput.classList.remove('hidden');
+                    criminalRecordDescInput.required = true;
+                } else {
+                    criminalRecordDescInput.classList.add('hidden');
+                    criminalRecordDescInput.required = false;
+                    criminalRecordDescInput.value = '';
+                }
+            });
+        });
+
+        // 动态显示/隐藏强化体质类型输入框
+        document.querySelectorAll('input[name="enhancedPhysique"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const enhancedPhysiqueTypeInput = document.getElementById('enhancedPhysiqueType');
+                if (this.value === '是') {
+                    enhancedPhysiqueTypeInput.classList.remove('hidden');
+                    enhancedPhysiqueTypeInput.required = true;
+                } else {
+                    enhancedPhysiqueTypeInput.classList.add('hidden');
+                    enhancedPhysiqueTypeInput.required = false;
+                    enhancedPhysiqueTypeInput.value = '';
+                }
+            });
+        });
+
+        // 动态显示/隐藏居住地地址输入框
+        document.querySelectorAll('input[name="residence"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const residenceAddressInput = document.getElementById('residenceAddress');
+                if (this.value === '是') {
+                    residenceAddressInput.classList.remove('hidden');
+                    residenceAddressInput.required = true;
+                } else {
+                    residenceAddressInput.classList.add('hidden');
+                    residenceAddressInput.required = false;
+                    residenceAddressInput.value = '';
+                }
+            });
+        });
+
+        // 动态显示/隐藏联系方式输入框
+        document.querySelectorAll('input[name="contact"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const contactNumberInput = document.getElementById('contactNumber');
+                if (this.value === '是') {
+                    contactNumberInput.classList.remove('hidden');
+                    contactNumberInput.required = true;
+                } else {
+                    contactNumberInput.classList.add('hidden');
+                    contactNumberInput.required = false;
+                    contactNumberInput.value = '';
                 }
             });
         });
@@ -368,37 +581,78 @@
                 gender: document.querySelector('input[name="gender"]:checked').value === '其他' 
                     ? '其他：' + (document.getElementById('otherGender').value || '无') 
                     : document.querySelector('input[name="gender"]:checked').value,
+                age: document.getElementById('age').value || '无',
+                race: document.getElementById('race').value || '无',
+                height: document.getElementById('height').value || '无',
+                weight: document.getElementById('weight').value || '无',
+                language: document.getElementById('language').value === '其他'
+                    ? '其他：' + (document.getElementById('otherLanguage').value || '无')
+                    : document.getElementById('language').value,
                 originWorld: document.getElementById('originWorld').value || '无',
                 currentWorld: document.getElementById('currentWorld').value || '无',
-                ability: document.querySelector('input[name="ability"]:checked').value === '有'
-                    ? '有：' + (document.getElementById('abilityDesc').value || '无描述')
+                previousOccupation: document.getElementById('previousOccupation').value || '无',
+                ability: document.querySelector('input[name="ability"]:checked').value === '是'
+                    ? '是：' + (document.getElementById('abilityDesc').value || '无描述')
                     : document.querySelector('input[name="ability"]:checked').value,
-                physique: document.querySelector('input[name="physique"]:checked').value === '强化'
-                    ? '强化：' + (document.getElementById('physiqueType').value || '无类型')
-                    : document.querySelector('input[name="physique"]:checked').value,
+                guarantor: document.querySelector('input[name="guarantor"]:checked').value === '是'
+                    ? '是：' + (document.getElementById('guarantorName').value || '无姓名')
+                    : document.querySelector('input[name="guarantor"]:checked').value,
+                education: document.querySelector('input[name="education"]:checked').value === '是'
+                    ? '是：' + (document.getElementById('educationDesc').value || '无描述')
+                    : document.querySelector('input[name="education"]:checked').value,
+                criminalRecord: document.querySelector('input[name="criminalRecord"]:checked').value === '是'
+                    ? '是：' + (document.getElementById('criminalRecordDesc').value || '无描述')
+                    : document.querySelector('input[name="criminalRecord"]:checked').value,
+                enhancedPhysique: document.querySelector('input[name="enhancedPhysique"]:checked').value === '是'
+                    ? '是：' + (document.getElementById('enhancedPhysiqueType').value || '无类型')
+                    : document.querySelector('input[name="enhancedPhysique"]:checked').value,
                 specialSkills: document.getElementById('specialSkills').value || '无',
-                purpose: document.getElementById('purpose').value || '无',
+                clerkWork: document.querySelector('input[name="clerkWork"]:checked').value,
+                residence: document.querySelector('input[name="residence"]:checked').value === '是'
+                    ? '是：' + (document.getElementById('residenceAddress').value || '无地址')
+                    : document.querySelector('input[name="residence"]:checked').value,
+                contact: document.querySelector('input[name="contact"]:checked').value === '是'
+                    ? '是：' + (document.getElementById('contactNumber').value || '无号码')
+                    : document.querySelector('input[name="contact"]:checked').value,
+                reason: document.getElementById('reason').value || '无',
                 agreeLaw: document.getElementById('agreeLaw').checked ? '是' : '否',
                 understandPromotion: document.getElementById('understandPromotion').checked ? '是' : '否',
                 authorizeVerify: document.getElementById('authorizeVerify').checked ? '是' : '否',
                 timestamp: new Date().toLocaleString()
             };
-            
+
             // 生成TXT文件内容
             let fileContent = `第二协议加入申请\n`;
             fileContent += `生成时间: ${formData.timestamp}\n\n`;
+            fileContent += `=== 基础信息 ===\n`;
             fileContent += `姓名/代号: ${formData.name}\n`;
             fileContent += `性别: ${formData.gender}\n`;
-            fileContent += `原生世界编号/名称: ${formData.originWorld}\n`;
-            fileContent += `当前常驻世界: ${formData.currentWorld}\n`;
-            fileContent += `异能: ${formData.ability}\n`;
-            fileContent += `体质: ${formData.physique}\n`;
+            fileContent += `年龄: ${formData.age}\n`;
+            fileContent += `种族: ${formData.race}\n`;
+            fileContent += `身高: ${formData.height} cm\n`;
+            fileContent += `体重: ${formData.weight} kg\n`;
+            fileContent += `使用语言: ${formData.language}\n\n`;
+            fileContent += `=== 世界信息 ===\n`;
+            fileContent += `原生世界编号: ${formData.originWorld}\n`;
+            fileContent += `常驻世界编号: ${formData.currentWorld}\n\n`;
+            fileContent += `=== 背景信息 ===\n`;
+            fileContent += `前职业: ${formData.previousOccupation}\n`;
+            fileContent += `是否拥有异能: ${formData.ability}\n`;
+            fileContent += `是否有保证人: ${formData.guarantor}\n`;
+            fileContent += `是否受过教育: ${formData.education}\n`;
+            fileContent += `是否有过通缉案底: ${formData.criminalRecord}\n`;
+            fileContent += `体质是否经过强化: ${formData.enhancedPhysique}\n`;
             fileContent += `特殊技艺: ${formData.specialSkills}\n`;
-            fileContent += `加入目的: ${formData.purpose}\n`;
+            fileContent += `是否从事文员工作: ${formData.clerkWork}\n`;
+            fileContent += `是否有居住地: ${formData.residence}\n`;
+            fileContent += `是否有联系方式: ${formData.contact}\n\n`;
+            fileContent += `=== 加入理由 ===\n`;
+            fileContent += `${formData.reason}\n\n`;
+            fileContent += `=== 协议确认 ===\n`;
             fileContent += `同意遵守协议法律: ${formData.agreeLaw}\n`;
             fileContent += `理解晋升机制: ${formData.understandPromotion}\n`;
             fileContent += `授权信息验证: ${formData.authorizeVerify}\n`;
-            
+
             return {
                 content: fileContent,
                 applicantName: formData.name
@@ -422,7 +676,7 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
-            
+
             // 显示成功消息
             document.getElementById('successText').textContent = '申请书已下载，请将文件发送至管理员完成申请。';
             document.getElementById('successMessage').classList.remove('hidden');
@@ -439,9 +693,9 @@
             const subject = `申请书：${application.applicantName}`;
             const body = `申请书：${application.applicantName}\n\n${application.content}`;
             const mailtoLink = `mailto:3362365853@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
+
             window.location.href = mailtoLink;
-            
+
             // 显示成功消息
             document.getElementById('successText').textContent = '邮件客户端已打开，请确认发送邮件。';
             document.getElementById('successMessage').classList.remove('hidden');
