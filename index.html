@@ -15,9 +15,70 @@
             --text-color: #333333;
         }
         @media (max-width: 992px) {
+            .header img {
+                display: none !important;
+            }
+            
+            /* 平板设备响应式 */
+            .image-gallery {
+                flex-wrap: wrap;
+            }
+            
+            .image-card {
+                flex: 0 0 calc(50% - 10px);
+            }
+        }
+        
+        /* 图片画廊样式 */
+        .image-gallery {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            gap: 20px;
+        }
 
-            img{
-                display: none!important;
+        .image-card {
+            flex: 1;
+            background: var(--card-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            background-color: #f0f0f0; /* 图片加载前的占位背景 */
+        }
+
+        .image-caption {
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-color);
+            background: rgba(44, 62, 80, 0.05);
+        }
+
+        /* 手机设备响应式 */
+        @media (max-width: 576px) {
+            .image-gallery {
+                flex-direction: column;
+            }
+            
+            .image-card {
+                flex: 0 0 100%;
+                margin-bottom: 20px;
+            }
+            
+            .image-card:last-child {
+                margin-bottom: 0;
             }
         }
 
@@ -100,6 +161,21 @@
                     <p>Γ级宇宙：3个异常</p>
                     <p>Ω级宇宙：新增1个</p>
                 </div>
+            </div>
+        </div>
+                <!-- 三张并排图片区域 - 使用在线占位图片确保显示 -->
+        <div class="image-gallery">
+            <div class="image-card">
+                <img src="images/image3.png" alt="多元宇宙探索">
+                <div class="image-caption">Gamma级宇宙异常现象记录</div>
+            </div>
+            <div class="image-card">
+                <img src="images/image1.png" alt="技术设备">
+                <div class="image-caption">最新PDT设备原型测试中</div>
+            </div>
+            <div class="image-card">
+                <img src="images/image2.png" alt="协议会议">
+                <div class="image-caption">第289.NHC年度安全会议现场</div>
             </div>
         </div>
 
