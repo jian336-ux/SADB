@@ -418,17 +418,29 @@
                     </div>
                 </div>
 
-                <div class="action-buttons">
-                    <button type="button" id="downloadBtn" class="btn btn-secondary">下载申请书</button>
-                    <button type="button" id="emailBtn" class="btn btn-primary">通过邮件发送</button>
+<div class="action-buttons">
+    <button type="button" id="downloadBtn" class="btn btn-secondary">下载申请书</button>
+    <button type="button" id="emailBtn" class="btn btn-primary">通过邮件发送</button>
+</div>
+
+
                 </div>
             </form>
 
-            <div id="successMessage" class="success-message hidden">
-                <h3>操作成功！</h3>
-                <p id="successText"></p>
-            </div>
+<div id="successMessage" class="success-message hidden">
+    <h3>操作成功！</h3>
+    <p id="successText"></p>
+    <div id="fallbackOptions" class="hidden" style="margin-top: 15px;">
+        <p>如果邮件客户端没有自动打开，请：</p>
+        <button id="copyEmailBtn" class="btn btn-secondary" style="margin: 5px;">复制邮箱地址</button>
+        <button id="showEmailBtn" class="btn btn-secondary" style="margin: 5px;">显示完整邮箱</button>
+        <div id="fullEmailInfo" class="hidden" style="margin-top: 10px;">
+            <p>请将申请书发送至：</p>
+            <p><strong>3362365853@qq.com</strong></p>
         </div>
+    </div>
+</div>
+
 
         <div class="footer">
             <p>提交后3个工作日内将通过数据库节点反馈审核结果</p>
@@ -683,23 +695,64 @@
         });
 
         // 通过邮件发送
-        document.getElementById('emailBtn').addEventListener('click', function() {
-            if (!document.getElementById('applicationForm').checkValidity()) {
-                alert('请填写所有必填字段');
-                return;
-            }
+        <!-- 替换原文件中的脚本部分 -->
+    // 保留原有的动态显示/隐藏逻辑...
 
-            const application = generateApplicationFile();
-            const subject = `申请书：${application.applicantName}`;
-            const body = `申请书：${application.applicantName}\n\n${application.content}`;
-            const mailtoLink = `mailto:3362365853@qq.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    // 修改后的邮件发送功能
+    document.getElementById('emailBtn').addEventListener('click', function() {
+        if (!document.getElementById('applicationForm').checkValidity()) {
+            alert('请填写所有必填字段');
+            return;
+        }
 
+        const application = generateApplicationFile();
+        const email = '3362365853@qq.com';
+        const subject = `第二协议加入申请: ${application.applicantName}`;
+        const body = `申请人: ${application.applicantName}\n\n${application.content}`;
+        
+        // 显示发送中状态
+        document.getElementById('successText').textContent = '正在尝试打开邮件客户端...';
+        document.getElementById('successMessage').classList.remove('hidden');
+        document.getElementById('fallbackOptions').classList.add('hidden');
+        document.getElementById('fullEmailInfo').classList.add('hidden');
+
+        // 尝试mailto跳转
+        try {
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             window.location.href = mailtoLink;
+            
+            // 设置超时检测
+            setTimeout(() => {
+                if (!document.hidden) {
+                    document.getElementById('successText').innerHTML = 
+                        '邮件客户端打开失败<br>请尝试以下备用方案';
+                    document.getElementById('fallbackOptions').classList.remove('hidden');
+                }
+            }, 1000);
+        } catch (e) {
+            document.getElementById('successText').innerHTML = 
+                '邮件发送出错<br>请尝试以下备用方案';
+            document.getElementById('fallbackOptions').classList.remove('hidden');
+        }
+    });
 
-            // 显示成功消息
-            document.getElementById('successText').textContent = '邮件客户端已打开，请确认发送邮件。';
-            document.getElementById('successMessage').classList.remove('hidden');
+    // 备用方案功能
+    document.getElementById('copyEmailBtn').addEventListener('click', function() {
+        const application = generateApplicationFile();
+        const emailContent = `收件人: 3362365853@qq.com\n主题: 第二协议加入申请: ${application.applicantName}\n\n${application.content}`;
+        
+        navigator.clipboard.writeText(emailContent).then(() => {
+            alert('申请内容已复制到剪贴板，请粘贴到您的邮件客户端');
+        }).catch(err => {
+            console.error('复制失败:', err);
+            alert('复制失败，请手动记录邮箱地址');
         });
+    });
+
+    document.getElementById('showEmailBtn').addEventListener('click', function() {
+        document.getElementById('fullEmailInfo').classList.remove('hidden');
+    });
+
     </script>
 </body>
 </html>
