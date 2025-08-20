@@ -268,5 +268,22 @@
             <p>© 289.NHC 第二协议数据库 | 由SADBAI提供技术支持</p>
         </div>
     </footer>
+
+    <script>
+        // 页面加载完成后执行动画
+        window.addEventListener('load', function() {
+            const splashScreen = document.getElementById('splash-screen');
+            
+            // 添加滑动动画类
+            setTimeout(function() {
+                splashScreen.classList.add('slide-out');
+                
+                // 动画结束后移除元素
+                splashScreen.addEventListener('animationend', function() {
+                    splashScreen.style.display = 'none';
+                });
+            }, 2000); // 2秒后开始动画
+        });
+    </script>
 </body>
 </html>
