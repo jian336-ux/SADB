@@ -269,20 +269,26 @@
         </div>
     </footer>
 
-    <script>
-        // 页面加载完成后执行动画
+  <script>
+    // 使用DOMContentLoaded确保元素存在，但不等待所有资源加载
+    document.addEventListener('DOMContentLoaded', function() {
+        const splashScreen = document.getElementById('splash-screen');
         
+        if (!splashScreen) return; // 安全判断
+        
+        // 固定2秒后执行动画
+        setTimeout(function() {
+            splashScreen.classList.add('slide-out');
             
-            // 添加滑动动画类
-            setTimeout(function() {
-                splashScreen.classList.add('slide-out');
+            // 动画结束后移除元素
+            splashScreen.addEventListener('animationend', function() {
+                splashScreen.style.display = 'none';
                 
-                // 动画结束后移除元素
-                splashScreen.addEventListener('animationend', function() {
-                    splashScreen.style.display = 'none';
-                });
-            }, 2000); // 2秒后开始动画
-        });
-    </script>
+                // 可选：移除事件监听器避免内存泄漏
+                splashScreen.removeEventListener('animationend', arguments.callee);
+            });
+        }, 2000);
+    });
+</script>
 </body>
 </html>
