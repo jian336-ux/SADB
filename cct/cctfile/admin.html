@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概念详情 - Administrator | 第二协议数据库</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        /* 新增子页面专用样式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --sidebar-width: 220px;
+        }
+
+        /* 详情页面布局 */
+        .detail-container {
+            display: flex;
+            margin: 30px 0;
+            gap: 20px;
+        }
+
+        /* 左侧导航 - 紧凑设计 */
+        .detail-nav {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .detail-nav h3 {
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin: 0 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .detail-nav li {
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .detail-nav a {
+            display: block;
+            padding: 5px 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9em;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .detail-nav a:hover,
+        .detail-nav a.active {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+        }
+
+        /* 右侧内容区 */
+        .detail-content {
+            flex: 1;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+
+        /* 人物标题区 */
+        .person-header {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        .person-image {
+            width: 180px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid var(--secondary-color);
+        }
+
+        .person-info {
+            flex: 1;
+        }
+
+        .person-header h1 {
+            color: var(--primary-color);
+            margin: 0 0 10px 0;
+            font-size: 1.8em;
+        }
+
+        .person-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .person-level {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .level-5 {
+            background-color: #9C27B0;
+            color: white;
+        }
+
+        .person-quote {
+            font-style: italic;
+            color: #666;
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 15px;
+            margin: 15px 0;
+        }
+
+        /* 内容区块 */
+        .person-section {
+            margin-bottom: 30px;
+        }
+
+        .person-section h2 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .person-section h3 {
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+        }
+
+        /* 时间线样式 */
+        .timeline {
+            position: relative;
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            border: 2px solid white;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .detail-container {
+                flex-direction: column;
+            }
+
+            .detail-nav {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+                max-height: none;
+            }
+            
+            .person-header {
+                flex-direction: column;
+            }
+            
+            .person-image {
+                width: 100%;
+                height: auto;
+                max-width: 250px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="header">
+            <h1>第二协议概念数据库</h1>
+            <p>探索 · 理解 · 传承 - 多元宇宙知识体系</p>
+        </div>
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <ul class="nav-links">
+                <li><a href="../../index.html">首页</a></li>
+                <li><a href="../techlist.html">技术资料</a></li>
+                <li><a href="../../world/list.html">世界列表</a></li>
+                <li><a href="../../notice/notice.html">官方通告</a></li>
+                <li><a href="../../cct/cctfile.html">概念</a></li>
+                <li><a href="../../work/group.html">协议机构</a></li>
+                <li><a href="../../work/workm.html">协议制度</a></li>
+                <li><a href="../../law/law.html" class="highlight">协议宪章</a></li>
+            </ul>
+        </div>
+        <!-- 主要内容区 -->
+        <div class="detail-container">
+            <!-- 左侧导航 -->
+            <nav class="detail-nav">
+                <h3>内容导航</h3>
+                <ul>
+                    <li><a href="#overview" class="active">人物概述</a></li>
+                    <li><a href="#early-life">早年经历</a></li>
+                    <li><a href="#military-career">军事生涯</a></li>
+                    <li><a href="#political-rise">政治崛起</a></li>
+                    <li><a href="#origin-war">起源战争</a></li>
+                    <li><a href="#second-agreement">第二协议</a></li>
+                    <li><a href="#achievements">主要成就</a></li>
+                    <li><a href="#legacy">历史遗产</a></li>
+                    <li><a href="#related">相关人物</a></li>
+                </ul>
+            </nav>
+
+            <!-- 右侧内容区 -->
+            <div class="detail-content">
+                <!-- 人物标题区 -->
+                <div class="person-header">
+                    <img src="../../image/administrator.jpg" alt="Administrator" class="person-image">
+                    <div class="person-info">
+                        <h1>Administrator</h1>
+                        <div class="person-meta">
+                            <span class="person-level level-5">最高机密</span>
+                            <span><strong>现任职务:</strong> 第二协议常任议长</span>
+                            <span><strong>服役状态:</strong> 现役</span>
+                            <span><strong>最后更新:</strong> 289.NHC.03.21</span>
+                        </div>
+                        <p class="person-quote">"多元宇宙无穷无尽，但我们的征途从未停止。探索、合作、共进——这不仅是我们协议的理念，更是所有智慧生命面对未知时应有的态度。"</p>
+                        <p>第二协议创始人与最高领导人，起源战争人类方总指挥，Origin Database创建者，被誉为"多元宇宙的守护者"。</p>
+                    </div>
+                </div>
+
+                <!-- 人物概述 -->
+                <section id="overview" class="person-section">
+                    <h2>人物概述</h2>
+                    <p>Administrator（管理员）是第二协议的创始人与最高领导人，也是起源战争中人类文明的总指挥官。他领导人类及其盟友赢得了对抗高维军团的起源战争，并在此后建立了跨多元宇宙的合作组织——第二协议。</p>
+                    
+                    <h3>基本信息</h3>
+                    <ul>
+                        <li><strong>真实姓名:</strong> 未知（所有记录已销毁）</li>
+                        <li><strong>代号:</strong> Administrator</li>
+                        <li><strong>化名:</strong> 安德米，安米莉，admin，安德民</li>
+                        <li><strong>性别:</strong> 男</li>
+                        <li><strong>种族:</strong> 人类-现代种</li>
+                        <li><strong>身高/体重:</strong> 185cm/62kg</li>
+                        <li><strong>年龄:</strong> 1736（截至289.NHC）</li>
+                        <li><strong>出生日期:</strong> 旧历1524年</li>
+                        <li><strong>出生地:</strong> 源宇宙-尤恩星系-尤恩星（现尤恩莱纳星）</li>
+                    </ul>
+                </section>
+
+                <!-- 早年经历 -->
+                <section id="early-life" class="person-section">
+                    <h2>早年经历</h2>
+                    <p>Administrator出生于旧历1524年，在尤恩星度过了前31年的人生。当时尤恩星处于一级文明状态，虽与人类联邦接轨但发展有限。</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1524年</div>
+                            <p>出生于尤恩星母大陆沿海城市萨拉姆的一个中产阶级家庭。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1549年</div>
+                            <p>毕业于海姆利特联合大学，进入量子网络技术企业工作。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1493年</div>
+                            <p>高维军团突袭尤恩星，家园被毁，成为难民，使用化名"莲协"登记。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1493-1401年</div>
+                            <p>被安置在迪亚波罗星系的亚流星，加入地下人工智能研究组织"智瞳"。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 军事生涯 -->
+                <section id="military-career" class="person-section">
+                    <h2>军事生涯</h2>
+                    <p>Administrator的军事才能在对高维军团的战斗中逐渐展现，最终成为人类联邦最杰出的军事指挥官。</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1401年</div>
+                            <p>因在"净化者"机械叛乱中的卓越表现被破格招募加入人类联邦军。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1388年</div>
+                            <p>指挥"塔里莫尼亚联合行动"，成功夺取高维军团关键设备。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1233年</div>
+                            <p>晋升为舰队司令，成为联邦史上最年轻的将官。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历1234年</div>
+                            <p>指挥D-03468-μ3Fb节点防卫战，以少胜多，一战成名。</p>
+                        </div>
+                    </div>
+                    
+                    <h3>诸神之战</h3>
+                    <p>在D-03468-μ3Fb节点防卫战中，Administrator指挥的仅有标准编制三分之力的守备舰队，成功抵挡高维军团整支先锋舰队长达十七天。他亲自驾驶改装侦察舰执行"斩首行动"，单舰穿透敌方主力阵列，摧毁旗舰能量核心。"一人敌一舰队"的称号由此传遍星际。</p>
+                </section>
+
+                <!-- 政治崛起 -->
+                <section id="political-rise" class="person-section">
+                    <h2>政治崛起</h2>
+                    <p>凭借在军事上的卓越成就和广泛声望，Administrator逐步进入政治领域，最终成为人类文明的最高领导人。</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历936年</div>
+                            <p>打破军职人员不得参选的宪法惯例，以98.7%的得票率当选联邦总统。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历933年</div>
+                            <p>当选人类至高领导人，公布并启动"起源核心计划"。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 起源战争 -->
+                <section id="origin-war" class="person-section">
+                    <h2>起源战争</h2>
+                    <p>作为人类方总指挥，Administrator领导了对抗高维军团的起源战争，最终取得了全面胜利。</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">旧历501年</div>
+                            <p>起源计算核心正式激活，开启全面反攻。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">新历元年元旦</div>
+                            <p>联军攻入高维军团最终堡垒"永恒王座"，起源战争结束。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 第二协议 -->
+                <section id="second-agreement" class="person-section">
+                    <h2>第二协议时期</h2>
+                    <p>战争结束后，Administrator主导创建了第二协议，建立了多元宇宙新秩序。</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">新历元年</div>
+                            <p>主导三大文明签署《多元宇宙公约》，解散第一协议，成立第二协议。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">新历元年</div>
+                            <p>当选第二协议首任常任议长，确立"探索、合作、共进"三大原则。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">新历133年</div>
+                            <p>逐渐退出日常政务，仅参与重大战略决策。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 主要成就 -->
+                <section id="achievements" class="person-section">
+                    <h2>主要成就</h2>
+                    <ul>
+                        <li>领导人类赢得起源战争</li>
+                        <li>创建第二协议多元宇宙合作体系</li>
+                        <li>主导开发Origin Database核心系统</li>
+                        <li>制定《多元宇宙文明接触准则》</li>
+                        <li>建立跨维度通信网络标准</li>
+                        <li>推动"熵增应对框架"国际合作协议</li>
+                    </ul>
+                </section>
+
+                <!-- 历史遗产 -->
+                <section id="legacy" class="person-section">
+                    <h2>历史遗产</h2>
+                    <p>Administrator的政治和科技遗产至今仍在塑造多元宇宙的秩序：</p>
+                    <ul>
+                        <li>第二协议制度体系继续规范多元宇宙关系</li>
+                        <li>Origin Database成为跨宇宙知识核心</li>
+                        <li>"熵增应对框架"指导文明发展方向</li>
+                        <li>创立的跨维度航行标准仍在广泛应用</li>
+                    </ul>
+                    <p>至今他仍居住在起源计算核心旁的"守望者堡垒"中，以永恒守望者的身份注视着无数宇宙的命运流转。</p>
+                </section>
+
+                <!-- 相关人物 -->
+                <section id="related" class="person-section">
+                    <h2>相关人物</h2>
+                    <ul>
+                        <li><strong>阮梵希</strong> - 第二协议成员，曾接受Administrator直接指导</li>
+                        <li><strong>Origin Database AI</strong> - Administrator主导创建的人工智能系统</li>
+                        <li><strong>艾尔族长老会</strong> - 起源战争中的人类盟友，第二协议共同创建者</li>
+                        <li><strong>科瑞尔共同体代表</strong> - 第二协议三方创建者之一</li>
+                    </ul>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 左侧导航激活状态切换
+        document.querySelectorAll('.detail-nav a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.querySelectorAll('.detail-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 根据滚动位置自动激活对应导航项
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.person-section');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.detail-nav a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === `#${currentSection}`) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
