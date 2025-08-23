@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界详细信息 - 原神世界 | 第二协议数据库</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --sidebar-width: 220px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 标题区样式 */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), #1a2530);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 4px solid var(--secondary-color);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .nav-links li {
+            margin: 0;
+        }
+        
+        .nav-links a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-links a.highlight {
+            background-color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        /* 详情页面布局 */
+        .detail-container {
+            display: flex;
+            margin: 30px 0;
+            gap: 20px;
+        }
+        
+        /* 左侧导航 - 紧凑设计 */
+        .detail-nav {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .detail-nav h3 {
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin: 0 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .detail-nav li {
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        
+        .detail-nav a {
+            display: block;
+            padding: 5px 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9em;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+        
+        .detail-nav a:hover,
+        .detail-nav a.active {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+        }
+        
+        /* 右侧内容区 */
+        .detail-content {
+            flex: 1;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+        
+        /* 技术标题区 */
+        .tech-header {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .tech-header h1 {
+            color: var(--primary-color);
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+        
+        .tech-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .tech-level {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .level-4 {
+            background-color: #F44336;
+            color: white;
+        }
+        
+        /* 内容区块 */
+        .tech-section {
+            margin-bottom: 30px;
+        }
+        
+        .tech-section h2 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tech-section h3 {
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+        }
+        
+        /* 世界内容样式 */
+        .region-card, .location-card, .org-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .region-card h4, .location-card h4, .org-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .region-card h4::before, .location-card h4::before, .org-card h4::before {
+            content: "📍";
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .org-card h4::before {
+            content: "🏛️";
+        }
+        
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .threat-high {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .access-warning {
+            background-color: #fff4f4;
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .detail-container {
+                flex-direction: column;
+            }
+            
+            .detail-nav {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+                max-height: none;
+            }
+            
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* 页脚样式 */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .footer p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="header">
+            <h1>第二协议技术资料库</h1>
+            <p>探索 · 创新 · 共享 - 多元宇宙技术资源中心</p>
+        </div>
+        
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <ul class="nav-links">
+                <li><a href="../../index.html">首页</a></li>
+                <li><a href="../techlist.html">技术资料</a></li>
+                <li><a href="../../world/list.html">世界列表</a></li>
+                <li><a href="../../notice/notice.html">官方通告</a></li>
+                <li><a href="../../cct/cctfile.html">概念</a></li>
+                <li><a href="../../work/group.html">协议机构</a></li>
+                <li><a href="../../work/workm.html">协议制度</a></li>
+                <li><a href="../../law/law.html" class="highlight">协议宪章</a></li>
+            </ul>
+        </div>
+        
+        <!-- 主要内容区 -->
+        <div class="detail-container">
+            <!-- 左侧导航 -->
+            <nav class="detail-nav">
+                <h3>内容导航</h3>
+                <ul>
+                    <li><a href="#overview" class="active">世界概述</a></li>
+                    <li><a href="#regions">主要地区</a></li>
+                    <li><a href="#mondstadt">蒙德地区</a></li>
+                    <li><a href="#liyue">璃月地区</a></li>
+                    <li><a href="#inazuma">稻妻地区</a></li>
+                    <li><a href="#sumeru">须弥地区</a></li>
+                    <li><a href="#fontaine">枫丹地区</a></li>
+                    <li><a href="#natlan">纳塔地区</a></li>
+                    <li><a href="#snezhnaya">至冬地区</a></li>
+                    <li><a href="#other">其他区域</a></li>
+                    <li><a href="#organizations">主要组织</a></li>
+                    <li><a href="#access">访问权限</a></li>
+                </ul>
+            </nav>
+            
+            <!-- 右侧内容区 -->
+            <div class="detail-content">
+                <!-- 技术标题区 -->
+                <div class="tech-header">
+                    <h1>原神世界 - 世界编号: 4-ACDE-A1E</h1>
+                    <div class="tech-meta">
+                        <span class="tech-level level-4">受限访问</span>
+                        <span><strong>世界类型:</strong> 元素魔法</span>
+                        <span><strong>文明等级:</strong> 中世纪至工业革命</span>
+                        <span><strong>更新时间:</strong> 288.NHC.08.15</span>
+                        <span><strong>上传者:</strong> 探索者7号</span>
+                    </div>
+                    <p>一个由尘世七执政管理的神权世界，七种元素力量构成世界基础，包含丰富的地理环境与多元文明。</p>
+                </div>
+                
+                <section id="overview" class="tech-section">
+                    <h2>世界概述</h2>
+                    <p>提瓦特大陆是一个由七种元素构成的世界，分别由七位神明掌管。这个世界有着丰富的地理环境和多样的文明，从蒙德的自由城邦到至冬的冰雪国度，每个地区都有其独特的文化和历史。</p>
+                    <p>大陆上分布着多个国家，每个国家代表一种元素：风-蒙德、岩-璃月、雷-稻妻、草-须弥、水-枫丹、火-纳塔、冰-至冬。各国的神明秉持着不同的理念统领其国家。</p>
+                </section>
+                
+                <section id="regions" class="tech-section">
+                    <h2>主要地区</h2>
+                    <div class="region-card">
+                        <h4>R1 提瓦特大陆</h4>
+                        <p>这片大陆有七个国家，分别是（神明掌管元素力-地区名）风-蒙德、岩-璃月、雷-稻妻、草-须弥、水-枫丹、火-纳塔、冰-至冬，分别代表七种元素风、岩、草、雷、水、火、冰，各国的神明秉持着不同的理念统领其国家。</p>
+                    </div>
+                </section>
+                
+                <section id="mondstadt" class="tech-section">
+                    <h2>蒙德地区 (R1-C1)</h2>
+                    <p>位于提瓦特大陆东北部的自由城邦。群山和广袤的平原间，自由之风携着蒲公英的气息吹拂过果酒湖，为坐落于湖心岛上的蒙德城送去风神巴巴托斯的祝福与恩泽。</p>
+                    <p>别名：自由之邦、自由之都、风之国度、牧歌之城、蒲公英的国度、北境之王冠</p>
+                    
+                    <h3>主要地点</h3>
+                    <div class="location-grid">
+                        <div class="location-card">
+                            <h4>蒙德城 (S1)</h4>
+                            <p>蒙德城四面被果酒湖包围，仅一座石桥与外界连接，城市的最深处是一座宏伟的教堂，名为"西风大教堂"，教堂外广场上竖立着风神巴巴托斯的雕像。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>风起地 (S2)</h4>
+                            <p>蒙德唯一的大平原，推测是风神巴巴托斯以这里为起点，改良了蒙德的地形。群风环抱的谷地，一棵巨大的橡树矗立其中。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>晨曦酒庄 (S6)</h4>
+                            <p>位于蒙德城西南方的晨曦酒庄，代代传承着蒙德传统的酿酒工艺。这里种植着大面积的葡萄等作物，用它们酿造出的各类酒品风靡整个提瓦特大陆。</p>
+                        </div>
+                    </div>
+                    
+                    <h3>主要组织</h3>
+                    <div class="org-card">
+                        <h4>西风骑士团 (G1)</h4>
+                        <p>"四风守护"中的"西风之鹰"，是蒙德国内治安组织。西风骑士团是负责维护蒙德城秩序，同时也守护蒙德城"自由"这一信条的组织。</p>
+                    </div>
+                    <div class="org-card">
+                        <h4>西风教会 (G2)</h4>
+                        <p>风神巴巴托斯的教会，总部为西风教堂，负责蒙德的宗教大权，最高掌权者为法尔伽。</p>
+                    </div>
+                </section>
+                
+                <section id="liyue" class="tech-section">
+                    <h2>璃月地区 (R1-C2)</h2>
+                    <p>位于大陆东方的富饶国度。其商港璃月港是全提瓦特大陆最繁华且吞吐量最大的港口。璃月的"黄金屋"是全提瓦特大陆唯一的铸币厂，生产全大陆的统一货币"摩拉"。</p>
+                    
+                    <h3>主要地点</h3>
+                    <div class="location-grid">
+                        <div class="location-card">
+                            <h4>璃月港 (S1)</h4>
+                            <p>璃月港的建立为璃月的海上贸易打下了最初的基础。作为提瓦特大陆上最大的集贸港口，其货物吞吐量也绝非一般港口可比拟。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>望舒客栈 (S3)</h4>
+                            <p>荻花洲的地标，修建在一座巨大岩柱上的客栈。来歇息的大多是途径此处的商贩，客栈也因此提供了直接贸易和摆摊的场所。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>层岩巨渊 (S7)</h4>
+                            <p>层岩巨渊位于璃沙郊西侧，地势复杂，有许多奇异的生态环境和地质环境。层岩巨渊的地面部分悬崖高耸，而地下矿区则分布着深不见底的峡谷与矿坑。</p>
+                        </div>
+                    </div>
+                    
+                    <h3>主要组织</h3>
+                    <div class="org-card">
+                        <h4>月海亭 (G1/G2)</h4>
+                        <p>璃月七星议事场所，璃月许多重要决策在此做出。</p>
+                    </div>
+                    <div class="org-card">
+                        <h4>黄金屋 (G3)</h4>
+                        <p>提瓦特大陆铸币厂，制造币种为摩拉。</p>
+                    </div>
+                    <div class="org-card">
+                        <h4>群玉阁 (G6) <span class="threat-high">威胁指数：9/10</span></h4>
+                        <p>盘旋于璃月港上方的空中宫殿，是"璃月七星"中"天权星"凝光的情报决策机关及私人行宫。</p>
+                    </div>
+                </section>
+                
+                <section id="inazuma" class="tech-section">
+                    <h2>稻妻地区 (R1-C3)</h2>
+                    <p>提瓦特大陆远东地区的群岛国家，由尘世七执政之一的雷神巴尔泽布统治，其核心理念为"永恒"。作为封闭的群岛国度，稻妻外海被雷暴屏障环绕。</p>
+                    
+                    <h3>主要地点</h3>
+                    <div class="location-grid">
+                        <div class="location-card">
+                            <h4>鸣神岛·离岛 (S1)</h4>
+                            <p>在锁国令期间，若想真正踏上鸣神的领土，就必须先通过离岛这道关卡。离岛由勘定奉行管辖，人们必须持有各类凭证才可出入此地。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>稻妻城 (S2)</h4>
+                            <p>稻妻最为繁华热闹的城区，稻妻人大多居住生活在此。从花见坂到町街，可顺着地势一路向上，游览当地传统的老店，品尝稻妻特色的美食。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>鸣神大社 (S4)</h4>
+                            <p>稻妻最大的神社，位于影向山顶，供奉着御建鸣神主尊大御所大人。神樱常开不败，一如鸣神永恒。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="sumeru" class="tech-section">
+                    <h2>须弥地区 (R1-C4)</h2>
+                    <p>位于提瓦特大陆中西部、璃月的西侧，是草的国度。须弥分为雨林和沙漠两大部分，沙漠位于须弥的西部和北部，被称为大赤沙海和苍漠囿土。</p>
+                    
+                    <h3>主要地点</h3>
+                    <div class="location-grid">
+                        <div class="location-card">
+                            <h4>须弥城 (S1)</h4>
+                            <p>地上一切智慧的渊薮。须弥城依托巨大的"圣树"而生，拥有上下许多层结构，坐落在雨林之间，被古树与水泽环绕。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>教令院 (S2)</h4>
+                            <p>须弥的学院，位于须弥城中部。教令院分为六大学院，专业迥异。教令院聚集了许多学者、贤者，并且掌握大量知识。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>大赤沙海 (S11)</h4>
+                            <p>须弥西部的辽阔沙漠，被称为大赤沙海。即使环境恶劣，依然有许多奇特的物种在这里生存。沙漠之中遍布着失落文明的遗迹。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="fontaine" class="tech-section">
+                    <h2>枫丹地区 (R1-C5)</h2>
+                    <p>大陆水系的源流之地，提瓦特大陆七国中的一国，被称为"正义的国度"，位于提瓦特大陆的中部。曾经信奉的神明为掌管"正义"的水之神芙卡洛斯。</p>
+                    
+                    <h3>主要地点</h3>
+                    <div class="location-grid">
+                        <div class="location-card">
+                            <h4>枫丹廷 (S1)</h4>
+                            <p>"众水之上，唯有此城。"城中最高处矗立着代表枫丹至高权威的"沫芒宫"，在其俯瞰之下，人们井然有序地生活着。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>欧庇克莱歌剧院 (S5)</h4>
+                            <p>位于伊黎耶岛的大歌剧院，同时也是审判与裁决的象征。欧庇克莱歌剧院中的"审判"是枫丹最值得一看的演出。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>梅洛彼得堡 (S10)</h4>
+                            <p>独立于枫丹的司法体系之外，以自治形式存在的水下要塞。这里是容留受审判而遭放逐的囚人的场所。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="natlan" class="tech-section">
+                    <h2>纳塔地区 (R1-C6)</h2>
+                    <p>隶属于提瓦特大陆七国中的火之国，位于须弥沙漠以西，由六大部族组成，以温泉文化与竞技传统闻名。其地貌以燎火之原、长峡溪谷为主。</p>
+                    
+                    <h3>主要地点</h3>
+                    <div class="location-grid">
+                        <div class="location-card">
+                            <h4>万火之瓯 (S1)</h4>
+                            <p>在此处，为荣誉与胜利点燃纷争之火吧，然后，一切灵魂之炽热，都将化作圣火永明的薪柴。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>涌流地 (S4)</h4>
+                            <p>与鳍游龙共同生活的部族，"流泉之众"因温泉和舒缓的音乐而闻名。在诸部族之中，唯有此处最受外来游客的欢迎。</p>
+                        </div>
+                        <div class="location-card">
+                            <h4>烬寂海 (S14)</h4>
+                            <p>一丝风也没有的，由灰烬构成的无边原野。许多经验丰富的冒险家的梦想断送在其中，许多不曾止歇的旅者也为之止步。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="snezhnaya" class="tech-section">
+                    <h2>至冬地区 (R1-C7)</h2>
+                    <p>统称为"至冬国"，由"尘世七执政"中的冰神"冰之女皇"统治的国度。位于提瓦特大陆北境，是一个常年被冰雪所覆盖的国度，寒冷无比。</p>
+                    
+                    <div class="access-warning">
+                        <strong>警告!</strong> 至冬各区域介绍访问权限未开启，无法检索!
+                    </div>
+                    
+                    <h3>主要组织</h3>
+                    <div class="org-card">
+                        <h4>愚人众 (G1)</h4>
+                        <p>名义上是至冬国外交使团，温迪称之为七国的最强战力。他们借保护的名义对其余六国实施欺压，实际在觊觎着七国中七执政与魔神的力量。</p>
+                    </div>
+                    <div class="org-card">
+                        <h4>冒险家协会 (G2)</h4>
+                        <p>冒险家协会是支援七国各地的冒险家的组织，总部在至冬国，于提瓦特大陆的各个国家均设有分部。</p>
+                    </div>
+                </section>
+                
+                <section id="other" class="tech-section">
+                    <h2>其他区域</h2>
+                    <div class="location-card">
+                        <h4>P2 天空岛</h4>
+                        <p>天空岛作为提瓦特大陆的立体中心点，承担着天理维系者驻守的核心区域天理的所在地，构成提瓦特大陆的核心枢纽。</p>
+                    </div>
+                    <div class="location-card">
+                        <h4>P3 挪德卡莱</h4>
+                        <p>至冬国南端与纳塔交界的自治区域，居民可使用比七元素力更古老的特殊力量，愚人众执行官「博士」为探究「古月遗骸」在此设立据点。其核心意象为"月亮"。</p>
+                    </div>
+                </section>
+                
+                <section id="organizations" class="tech-section">
+                    <h2>主要组织</h2>
+                    <div class="org-card">
+                        <h4>愚人众 (G1)</h4>
+                        <p>至冬国外交使团，七国的最强战力。其中的十一位执行官由冰之女皇亲自赋予力量，在组织内拥有最高权限，目前正在谋夺尘世七执政中其他六位的「神之心」。</p>
+                    </div>
+                    <div class="org-card">
+                        <h4>霜月之子 (G4)</h4>
+                        <p>仙灵一族建立的黄金国的遗民，活跃在挪德卡莱的神秘团体，崇拜月亮的神明，挪德卡莱各处都能看到他们树立的塑像。</p>
+                    </div>
+                    <div class="org-card">
+                        <h4>执灯人 (G6)</h4>
+                        <p>守护挪德卡莱的自由与和平的古老组织，起源于漆黑灾厄时期，负责猎杀深渊魔物。</p>
+                    </div>
+                </section>
+                
+                <section id="access" class="tech-section">
+                    <h2>访问权限</h2>
+                    <p>原神世界的访问受到严格限制，需要获得相应权限才能访问特定区域：</p>
+                    <ul>
+                        <li><strong>基础权限:</strong> 可访问蒙德、璃月公开区域</li>
+                        <li><strong>中级权限:</strong> 可访问稻妻、须弥、枫丹非限制区域</li>
+                        <li><strong>高级权限:</strong> 可访问纳塔、至冬及特殊区域</li>
+                        <li><strong>最高权限:</strong> 可访问天空岛、挪德卡莱等机密区域</li>
+                    </ul>
+                    <div class="access-warning">
+                        <strong>注意:</strong> 未经授权访问受限区域可能导致维度不稳定或遭遇敌对实体。
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <div class="footer">
+        <p>第二协议技术资料库 © 2023 - 探索多元宇宙的技术奥秘</p>
+        <p>本数据库内容仅供参考，访问敏感信息需要相应权限</p>
+    </div>
+
+    <script>
+        // 左侧导航激活状态切换
+        document.querySelectorAll('.detail-nav a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.querySelectorAll('.detail-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 根据滚动位置自动激活对应导航项
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.tech-section');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.detail-nav a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === `#${currentSection}`) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
