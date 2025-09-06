@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工星系技术 | 第二协议数据库</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        /* 技术详情页面样式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f5f5f5;
+            --card-color: #ffffff;
+            --text-color: #333333;
+            --sidebar-width: 220px;
+        }
+
+        .detail-container {
+            display: flex;
+            margin: 30px 0;
+            gap: 20px;
+        }
+
+        .detail-nav {
+            width: var(--sidebar-width);
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .detail-nav h3 {
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin: 0 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .detail-nav li {
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .detail-nav a {
+            display: block;
+            padding: 5px 8px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9em;
+            border-radius: 3px;
+            transition: all 0.2s;
+        }
+
+        .detail-nav a:hover,
+        .detail-nav a.active {
+            background-color: rgba(52, 152, 219, 0.1);
+            color: var(--secondary-color);
+        }
+
+        .detail-content {
+            flex: 1;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+        }
+
+        .tech-header {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tech-header h1 {
+            color: var(--primary-color);
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+
+        .tech-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .tech-level {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .level-omega {
+            background-color: #9C27B0;
+            color: white;
+        }
+
+        .tech-section {
+            margin-bottom: 30px;
+        }
+
+        .tech-section h2 {
+            color: var(--primary-color);
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tech-section h3 {
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin: 20px 0 10px 0;
+        }
+
+        .tech-section h4 {
+            color: var(--primary-color);
+            font-size: 1em;
+            margin: 15px 0 8px 0;
+            font-weight: bold;
+        }
+
+        .protocol-note {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .protocol-restriction {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .detail-container {
+                flex-direction: column;
+            }
+
+            .detail-nav {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="header">
+            <h1>第二协议技术资料库</h1>
+            <p>探索 · 创新 · 共享 - 多元宇宙技术资源中心</p>
+        </div>
+        
+        <!-- 导航栏 -->
+        <div class="navbar">
+            <ul class="nav-links">
+                <li><a href="../../index.html">首页</a></li>
+                <li><a href="../techlist.html">技术资料</a></li>
+                <li><a href="../../world/list.html">世界列表</a></li>
+                <li><a href="../../notice/notice.html">官方通告</a></li>
+                <li><a href="../../cct/cctfile.html">概念</a></li>
+                <li><a href="../../work/group.html">协议机构</a></li>
+                <li><a href="../../work/workm.html">协议制度</a></li>
+                <li><a href="../../law/law.html" class="highlight">协议宪章</a></li>
+            </ul>
+        </div>
+        
+        <!-- 主要内容区 -->
+        <div class="detail-container">
+            <!-- 左侧导航 -->
+            <nav class="detail-nav">
+                <h3>内容导航</h3>
+                <ul>
+                    <li><a href="#overview" class="active">技术概述</a></li>
+                    <li><a href="#history">历史背景</a></li>
+                    <li><a href="#principles">技术原理</a></li>
+                    <li><a href="#applications">应用领域</a></li>
+                    <li><a href="#ethics">伦理影响</a></li>
+                    <li><a href="#examples">著名实例</a></li>
+                    <li><a href="#protocol">协议立场</a></li>
+                </ul>
+            </nav>
+
+            <!-- 右侧内容区 -->
+            <div class="detail-content">
+                <!-- 技术标题区 -->
+                <div class="tech-header">
+                    <h1>人工星系技术</h1>
+                    <div class="tech-meta">
+                        <span class="tech-level level-omega">Ω级机密</span>
+                        <span><strong>技术等级:</strong> III型文明及以上</span>
+                        <span><strong>研发文明:</strong> 前第一协议成员</span>
+                        <span><strong>最后更新:</strong> 289.NHC.07.12</span>
+                        <span><strong>权限等级:</strong> 第二档及以上成员</span>
+                    </div>
+                    <p>人工星系技术是指能够从零开始创造或精确复刻完整恒星系的终极工程技术，代表了文明对宇宙基础物理法则的最终掌握。</p>
+                    <div class="protocol-restriction">
+                        <strong>第二协议限制:</strong> 该技术受《跨宇宙技术扩散管制条约》严格限制，任何应用必须经协议高层批准。
+                    </div>
+                </div>
+
+                <!-- 技术概述 -->
+                <section id="overview" class="tech-section">
+                    <h2>技术概述</h2>
+                    <p>人工星系技术并非指改造现有行星或建造戴森球，而是指从无到有地、精密地"雕刻"整个恒星系。其过程始于在虚空中汇聚能量，将其转化为原始星云物质，随后通过引导引力吸积和核聚变，依次创造恒星、行星、小行星带等天体。</p>
+                    
+                    <p>整个系统通常会被一个"时空屏蔽膜"包裹，使其与外部宇宙隔离，形成一个独立、可控的宇宙单元。该技术是工程学、物理学、生物学和社会学的终极融合，是文明从"宇宙的居民"转变为"宇宙的创造者"的标志性转折点。</p>
+                    
+                    <div class="protocol-note">
+                        <strong>第二协议注解:</strong> 目前协议内仅保存有该技术的理论资料和部分子技术，完整技术被视为"禁忌知识"，受起源战争后签订的《技术限制公约》约束。
+                    </div>
+                </section>
+
+                <!-- 历史背景 -->
+                <section id="history" class="tech-section">
+                    <h2>历史背景与发展阶段</h2>
+                    
+                    <h3>思想萌芽与理论奠基期</h3>
+                    <p>该技术的理论根源可追溯至前协议时代。爱因斯坦的质能方程（E=mc²）提供了能量转化为物质的理论基础。随后，关于恒星演化的模型和行星形成理论为"创造"提供了蓝图。</p>
+                    
+                    <h3>恒星操控与物质时代</h3>
+                    <p>当文明达到Kardashev Type II中期，能够完全操控其母恒星能量后，实验开始转向小规模实践。初期尝试包括恒星复苏和物质锻造厂，这些成功证明了大规模质能转化和恒星级别能量导引的可行性。</p>
+                    
+                    <h3>首次成功与"创世纪"时代</h3>
+                    <p>第一个真正意义上的人工星系通常是其创造者文明的母星系的精确复刻版。驱动这一项目的往往是一种深刻的怀旧或悲剧：母星系因超新星爆发、真空衰变或战争而面临毁灭。</p>
+                    
+                    <h3>技术成熟与哲学转向期</h3>
+                    <p>随着技术成本下降和稳定性的提高，人工星系的建造目的发生了演变，从"必需"转变为"艺术"，从"纪念"转变为"实验"。文明开始反思自身角色，产生了深刻的存在主义思考。</p>
+                    
+                    <div class="protocol-note">
+                        <strong>历史记录:</strong> 据协议档案记载，起源战争期间曾有计划使用该技术重建被高维军团摧毁的星系，但因资源限制和伦理考量未能实施。
+                    </div>
+                </section>
+
+                <!-- 技术原理 -->
+                <section id="principles" class="tech-section">
+                    <h2>技术原理详解</h2>
+                    
+                    <h3>能量汲取与质能转化</h3>
+                    <p>建造所需的能量规模无法通过常规方式获取。通常采用真空零点能提取、多重戴森群能量汇聚或星系湮灭转化等方式。</p>
+                    
+                    <h3>恒星锻造与点燃</h3>
+                    <p>使用人工引力场发生器对星云进行压缩，主动快速地将物质聚集。当质量达到临界点时，向核心区域注入高能粒子束引发核聚变反应。</p>
+                    
+                    <h3>行星系统构建</h3>
+                    <p>在恒星的剩余吸积盘上，通过精准的引力透镜和物质流导引，在特定轨道上"播种"行星种子，并进行差异化吸积和精细调整。</p>
+                    
+                    <h3>生命播种与生态加速</h3>
+                    <p>向条件适宜的行星投放基因改造的微生物，快速改变大气成分，使用气候控制网络和定向进化诱导场催生出复杂的生态系统。</p>
+                    
+                    <h3>时空屏蔽膜部署</h3>
+                    <p>在星系外围部署时空曲率调节器，生成光学屏蔽、物理隔离和内部法则维持效应，形成一个绝对边界。</p>
+                    
+                    <div class="protocol-restriction">
+                        <strong>技术限制:</strong> 根据第二协议《危险技术管制条例》，时空屏蔽膜技术禁止用于创建完全隔离的宇宙区域，以防产生无法监控的威胁。
+                    </div>
+                </section>
+
+                <!-- 应用领域 -->
+                <section id="applications" class="tech-section">
+                    <h2>主要应用领域</h2>
+                    
+                    <h3>Preservation：文明方舟与博物馆</h3>
+                    <p>完美复刻一个因灾难而失去的母星系，或将一个具有珍贵历史价值的星系"备份"下来，使其免受时间侵蚀。</p>
+                    
+                    <h3>Creation：艺术表达与科学实验</h3>
+                    <p>创造违背自然规律的星系，或作为极端环境测试物理理论和社会学实验场。</p>
+                    
+                    <h3>Isolation：绝对控制区与避世所</h3>
+                    <p>用于隔离危险的实验、囚禁宇宙级威胁，或为某些追求绝对安静的文明提供避世所。</p>
+                    
+                    <div class="protocol-note">
+                        <strong>当前应用:</strong> 第二协议仅在极端情况下考虑使用该技术的简化版本，如为濒危文明创建临时庇护所。
+                    </div>
+                </section>
+
+                <!-- 伦理影响 -->
+                <section id="ethics" class="tech-section">
+                    <h2>伦理、哲学与社会影响</h2>
+                    <p>人工星系技术带来了深远的伦理挑战：创造者是否对其创造的生命负有责任？这些生命如果知道自身是被"设计"出来的，其存在意义是否会崩塌？</p>
+                    
+                    <p>一个复刻的、没有漫长自然历史的家园，即使再完美，也引发真实性质疑。当文明可以创造一切时，其发展的动力何在？是否会陷入享乐主义或虚无主义？</p>
+                    
+                    <p>此外，建造一个人工星系消耗的资源足以让亿万个体文明过上天堂般的生活，引发了严重的资源分配公正性质疑。</p>
+                    
+                    <div class="protocol-restriction">
+                        <strong>协议伦理准则:</strong> 《第二协议伦理宪章》第7条明确规定：禁止为娱乐或艺术目的创建包含感知生命的人工星系。
+                    </div>
+                </section>
+
+                <!-- 著名实例 -->
+                <section id="examples" class="tech-section">
+                    <h2>著名的人工星系实例</h2>
+                    
+                    <h3>"新地球"系统</h3>
+                    <p>人类文明在太阳系濒临毁灭后，在M13球状星团内重建的复制品，是其最大的文化遗产。</p>
+                    
+                    <h3>"缇丰之环"</h3>
+                    <p>一个艺术星系，其七颗行星的轨道排列成一个完美的圆环，围绕一颗变光星运行，形成周期性的视觉盛宴。</p>
+                    
+                    <h3>"静滞牢笼"</h3>
+                    <p>一个被屏蔽膜包裹的、时间流速近乎为零的星系，内部封锁着一种曾席卷数个星系的自我复制纳米灰雾。</p>
+                    
+                    <div class="protocol-note">
+                        <strong>监控状态:</strong> 第二协议持续监控所有已知人工星系，确保其不会对多元宇宙安全构成威胁。
+                    </div>
+                </section>
+
+                <!-- 协议立场 -->
+                <section id="protocol" class="tech-section">
+                    <h2>第二协议立场与监管</h2>
+                    <p>基于起源战争的惨痛教训，第二协议对人工星系技术采取谨慎而严格的管理态度：</p>
+                    
+                    <ul>
+                        <li>所有人工星系建设项目必须经过协议高层和伦理委员会双重审批</li>
+                        <li>禁止创建包含高智慧生命的星系</li>
+                        <li>所有人工星系必须接入协议监控网络，不得完全隔离</li>
+                        <li>资源消耗超过一定阈值的人工星系项目自动触发最高级别审查</li>
+                        <li>任何试图复制起源核心计划相关技术的尝试将被立即终止</li>
+                    </ul>
+                    
+                    <div class="protocol-restriction">
+                        <strong>最终立场:</strong> 第二协议认为，人工星系技术代表了文明的终极力量，但也可能是其最后的伟大工程。技术的真正挑战不在于建造，而在于为创造物赋予真正意义上的"意义"。
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 左侧导航激活状态切换
+        document.querySelectorAll('.detail-nav a').forEach(link => {
+            link.addEventListener('click', function () {
+                document.querySelectorAll('.detail-nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // 根据滚动位置自动激活对应导航项
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('.tech-section');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.detail-nav a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === `#${currentSection}`) {
+                    a.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
